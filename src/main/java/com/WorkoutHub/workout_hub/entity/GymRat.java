@@ -10,7 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "gym_rat")
+@Table(name = "gym_rats")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,6 +35,6 @@ public class GymRat {
     private LocalDateTime createdAt;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "gym_rat_info_id", nullable = false)
-    private GymRatInfo info;
+    @JoinColumn(name = "gym_rat_profile_id", nullable = false)
+    private GymRatProfile info;
 }
