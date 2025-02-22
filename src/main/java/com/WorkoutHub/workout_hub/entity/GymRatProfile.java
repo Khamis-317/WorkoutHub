@@ -11,12 +11,12 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table(name = "gym_rat_info")
+@Table(name = "gym_rat_profiles")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GymRatInfo {
+public class GymRatProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

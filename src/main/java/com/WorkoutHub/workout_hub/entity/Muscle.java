@@ -1,6 +1,5 @@
 package com.WorkoutHub.workout_hub.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,17 +7,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "exercises")
+@Table(name = "muscles")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Exercise {
+public class Muscle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "instructions", nullable = false)
-    String instructions;
+    @Column(name = "name")
+    private String name;
 }
