@@ -1,0 +1,6 @@
+#ignoring Intellij IDEA files
+.idea
+
+#ignoring compiled files
+target
+
