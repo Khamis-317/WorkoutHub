@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.Set;
+
 @Entity
 @Table(name = "muscles")
 @Data
@@ -20,4 +23,7 @@ public class Muscle {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "muscle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ExerciseMuscle> activationExercises;
 }
