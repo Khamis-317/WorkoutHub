@@ -1,10 +1,7 @@
 package com.WorkoutHub.workout_hub.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -21,9 +18,10 @@ public class Muscle {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String name;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "muscle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ExerciseMuscle> activationExercises;
 }

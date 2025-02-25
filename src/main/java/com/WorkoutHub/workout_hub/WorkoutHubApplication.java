@@ -3,10 +3,14 @@ package com.WorkoutHub.workout_hub;
 import com.WorkoutHub.workout_hub.entity.Exercise;
 import com.WorkoutHub.workout_hub.entity.Muscle;
 import com.WorkoutHub.workout_hub.repository.ExerciseRepo;
+import com.WorkoutHub.workout_hub.repository.MuscleRepo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class WorkoutHubApplication {
@@ -16,9 +20,17 @@ public class WorkoutHubApplication {
 	}
 
 	@Bean
-	public CommandLineRunner commandLineRunner(ExerciseRepo Repo) {
+	public CommandLineRunner commandLineRunner(ExerciseRepo exRepo, MuscleRepo mRepo) {
 		return runner -> {
-			createExercises(Repo);
+//			createExercises(exRepo);
+			addExerciseWithExistingMuscles(exRepo, mRepo);
+
+			// TODO: test delete cascades (done)
+			// TODO: Add unique constraint for muscle and exercise names (done)
+			// TODO: test adding an exercise existing muscles (done)
+			// TODO: test finding exercise only by id
+			// TODO: test finding exercise only by name
+			// TODO: test finding exercise with muscle group
 		};
 	}
 
@@ -41,5 +53,22 @@ public class WorkoutHubApplication {
 
 		repo.save(ex1);
 		repo.save(ex2);
+	}
+
+	private void addExerciseWithExistingMuscles(ExerciseRepo exRepo, MuscleRepo mRepo) {
+		String exerciseName = "Lateral Raises";
+		Exercise ex = exRepo.findByName(exerciseName)
+				.orElse(null);
+		if (ex == null) {
+			ex = Exercise.builder().name(exerciseName).instructions("Raise your shoulders to the side").build();
+
+			String muscleName = "Shoulder";
+			Muscle muscle =  mRepo.findMuscleByName(muscleName)
+					.orElse(Muscle.builder().name(muscleName).build());
+
+			ex.addExerciseMuscle(muscle, true);
+
+			exRepo.save(ex);
+		}
 	}
 }

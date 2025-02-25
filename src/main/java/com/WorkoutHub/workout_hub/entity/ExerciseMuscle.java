@@ -32,13 +32,12 @@ public class ExerciseMuscle {
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
+    // only cascade PERSIST, MERGE actions
     @ManyToOne(
             fetch = FetchType.EAGER,
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE,
-                    CascadeType.DETACH,
-                    CascadeType.REFRESH
+                    CascadeType.MERGE
     })
     @JoinColumn(name = "muscle_id")
     private Muscle muscle;

@@ -2,10 +2,7 @@ package com.WorkoutHub.workout_hub.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,14 +22,15 @@ public class Exercise {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "instructions", nullable = false)
+    @Column(name = "instructions")
     String instructions;
 
     // saving an (exercise) with a muscle group will also save the (muscles) in their table
     // deleting an (exercise) doesn't delete the (muscles) in the muscle group
+    @ToString.Exclude
     @OneToMany(mappedBy = "exercise", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ExerciseMuscle> muscleGroup;
 
@@ -50,8 +48,3 @@ public class Exercise {
         muscleGroup.add(exerciseMuscle);
     }
 }
-
-// Uni-directional OneToMany
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "exercise_id")
-//    private Set<ExerciseMuscle> muscle_group;
