@@ -37,8 +37,10 @@ public class ExerciseMuscle {
             fetch = FetchType.EAGER,
             cascade = {
                     CascadeType.PERSIST,
-                    CascadeType.MERGE
-    })
+                    CascadeType.MERGE,
+                    CascadeType.DETACH,
+                    CascadeType.REFRESH
+            })
     @JoinColumn(name = "muscle_id")
     private Muscle muscle;
 }

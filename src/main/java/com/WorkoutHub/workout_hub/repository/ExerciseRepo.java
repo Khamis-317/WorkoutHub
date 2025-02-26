@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ExerciseRepo extends JpaRepository<Exercise, Integer> {
+public interface ExerciseRepo extends JpaRepository<Exercise, Integer>, CustomExerciseRepo {
     Optional<Exercise> findByName(String name);
 }

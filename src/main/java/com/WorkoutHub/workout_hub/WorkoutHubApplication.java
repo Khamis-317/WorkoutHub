@@ -22,7 +22,7 @@ public class WorkoutHubApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(ExerciseRepo exRepo, MuscleRepo mRepo) {
 		return runner -> {
-//			createExercises(exRepo);
+			// createExercises(exRepo);
 			addExerciseWithExistingMuscles(exRepo, mRepo);
 
 			// TODO: test delete cascades (done)
@@ -31,6 +31,8 @@ public class WorkoutHubApplication {
 			// TODO: test finding exercise only by id
 			// TODO: test finding exercise only by name
 			// TODO: test finding exercise with muscle group
+			// TODO: test the nullable constraint
+			// TODO: test the unique constraint
 		};
 	}
 
@@ -68,7 +70,7 @@ public class WorkoutHubApplication {
 
 			ex.addExerciseMuscle(muscle, true);
 
-			exRepo.save(ex);
+			exRepo.merge(ex);
 		}
 	}
 }

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "muscles")
@@ -18,7 +17,7 @@ public class Muscle {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @ToString.Exclude
