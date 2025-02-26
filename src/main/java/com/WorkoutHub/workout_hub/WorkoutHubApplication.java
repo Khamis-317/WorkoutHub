@@ -32,16 +32,6 @@ public class WorkoutHubApplication {
 //				System.out.println("Exercise with id 44: " + ex.get());
 //				System.out.println("Exercise muscle group : " + ex.get().getMuscleGroup());
 //			}
-
-
-			// TODO: test delete cascades (done)
-			// TODO: Add unique constraint for muscle and exercise names (done)
-			// TODO: test adding an exercise existing muscles (done)
-			// TODO: test finding exercise only by id (done)
-			// TODO: test finding exercise only by name	(done)
-			// TODO: test finding exercise with muscle group (done)
-			// TODO: test the nullable constraint
-			// TODO: test the unique constraint
 		};
 	}
 
