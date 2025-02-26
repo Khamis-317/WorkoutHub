@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import java.util.List;
 import java.util.Optional;
 
+
 @SpringBootApplication
 public class WorkoutHubApplication {
 
@@ -22,15 +23,23 @@ public class WorkoutHubApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(ExerciseRepo exRepo, MuscleRepo mRepo) {
 		return runner -> {
-			// createExercises(exRepo);
-			addExerciseWithExistingMuscles(exRepo, mRepo);
+			 createExercises(exRepo);
+			// addExerciseWithExistingMuscles(exRepo, mRepo);
+//			List<Exercise> exercises = exRepo.findAll();
+//			System.out.println("All exercises: " + exercises);
+//			Optional<Exercise> ex = exRepo.findExerciseAndMuscleGroupById(44);
+//			if(ex.isPresent()) {
+//				System.out.println("Exercise with id 44: " + ex.get());
+//				System.out.println("Exercise muscle group : " + ex.get().getMuscleGroup());
+//			}
+
 
 			// TODO: test delete cascades (done)
 			// TODO: Add unique constraint for muscle and exercise names (done)
 			// TODO: test adding an exercise existing muscles (done)
-			// TODO: test finding exercise only by id
-			// TODO: test finding exercise only by name
-			// TODO: test finding exercise with muscle group
+			// TODO: test finding exercise only by id (done)
+			// TODO: test finding exercise only by name	(done)
+			// TODO: test finding exercise with muscle group (done)
 			// TODO: test the nullable constraint
 			// TODO: test the unique constraint
 		};
@@ -59,7 +68,7 @@ public class WorkoutHubApplication {
 
 	private void addExerciseWithExistingMuscles(ExerciseRepo exRepo, MuscleRepo mRepo) {
 		String exerciseName = "Lateral Raises";
-		Exercise ex = exRepo.findByName(exerciseName)
+		Exercise ex = exRepo.findExerciseByName(exerciseName)
 				.orElse(null);
 		if (ex == null) {
 			ex = Exercise.builder().name(exerciseName).instructions("Raise your shoulders to the side").build();

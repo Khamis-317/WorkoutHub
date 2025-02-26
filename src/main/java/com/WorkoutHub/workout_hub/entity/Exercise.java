@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.function.BinaryOperator;
 
 @Entity
-@Table(name = "exercises")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "exercises", uniqueConstraints = {
+        @UniqueConstraint(name = "UniqueExerciseName", columnNames = {"name"})
+})
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
