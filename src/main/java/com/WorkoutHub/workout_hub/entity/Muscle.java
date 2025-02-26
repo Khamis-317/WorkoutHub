@@ -1,13 +1,14 @@
 package com.WorkoutHub.workout_hub.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
-@Table(name = "muscles")
+@Table(name = "muscles", uniqueConstraints = {
+@UniqueConstraint(name = "UniqueMuscleName", columnNames = {"name"})
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,6 +19,10 @@ public class Muscle {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "muscle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ExerciseMuscle> activationExercises;
 }

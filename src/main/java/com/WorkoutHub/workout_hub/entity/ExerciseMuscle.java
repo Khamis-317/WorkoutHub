@@ -21,7 +21,26 @@ public class ExerciseMuscle {
     @Column(name = "is_primary")
     private boolean isPrimary;
 
-    private int exercise_id;
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE,
+                CascadeType.DETACH,
+                CascadeType.REFRESH
+    })
+    @JoinColumn(name = "exercise_id")
+    private Exercise exercise;
 
-    private int muscle_id;
+    // only cascade PERSIST, MERGE actions
+    @ManyToOne(
+            fetch = FetchType.EAGER,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE,
+                    CascadeType.DETACH,
+                    CascadeType.REFRESH
+            })
+    @JoinColumn(name = "muscle_id")
+    private Muscle muscle;
 }
