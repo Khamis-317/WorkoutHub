@@ -1,5 +1,6 @@
 package com.WorkoutHub.workout_hub.entity;
 
+import com.WorkoutHub.workout_hub.enums.MuscleImportance;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,17 @@ public class Muscle {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "muscle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ExerciseMuscle> activationExercises;
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "importance")
+    private MuscleImportance importance;
+
+    @ManyToMany(mappedBy = "muscleGroup",
+            fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE,
+                CascadeType.DETACH,
+                CascadeType.REFRESH
+    })
+    private List<Exercise> activationExercises;
 }
