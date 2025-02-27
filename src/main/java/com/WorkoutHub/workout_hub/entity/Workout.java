@@ -2,15 +2,13 @@ package com.WorkoutHub.workout_hub.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "workouts")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -24,7 +22,6 @@ public abstract class Workout {
     @Column(name = "title", nullable = false)
     String title;
 
-
     //region Relations with other entities
     @ManyToOne(
             cascade = {CascadeType.DETACH,
@@ -35,5 +32,7 @@ public abstract class Workout {
     @JoinColumn(name = "gym_rat_id")
     GymRat gymRat;
     //endregion
+
+
 
 }

@@ -1,5 +1,5 @@
 package com.WorkoutHub.workout_hub.enums;
 
-public enum Visibillity {
+public enum Visibility {
     Public,Private,OnlyFriends
 }

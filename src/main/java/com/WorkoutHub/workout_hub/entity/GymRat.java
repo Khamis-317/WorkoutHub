@@ -41,7 +41,7 @@ public class GymRat {
     @JoinColumn(name = "gym_rat_profile_id", nullable = false)
     private GymRatProfile info;
 
-    @OneToMany(mappedBy = "gymRat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "gymRat", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     List<Workout> workouts;
     //endregion
 
