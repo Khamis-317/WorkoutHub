@@ -31,20 +31,39 @@ public class Exercise {
     // saving an (exercise) with a muscle group will also save the (muscles) in their table
     // deleting an (exercise) doesn't delete the (muscles) in the muscle group
     @ToString.Exclude
-    @OneToMany(mappedBy = "exercise", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ExerciseMuscle> muscleGroup;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.REFRESH
+    })
+    @JoinTable(
+            name = "exercise_muscles",
+            joinColumns = @JoinColumn(name = "exercise_id"),
+            inverseJoinColumns = @JoinColumn(name = "muscle_id")
+    )
+    private List<Muscle> muscleGroup;
 
     // convenience methods
-    public void addExerciseMuscle(Muscle muscle, boolean isPrimary) {
+    public void addMuscle(Muscle muscle) {
         if (muscleGroup == null) {
             muscleGroup = new ArrayList<>();
         }
-        ExerciseMuscle exerciseMuscle = ExerciseMuscle
-                .builder()
-                .muscle(muscle)
-                .exercise(this)
-                .isPrimary(isPrimary)
-                .build();
-        muscleGroup.add(exerciseMuscle);
+        muscleGroup.add(muscle);
+        // muscle.addExercise(this);
     }
+
+
+//    public void addExerciseMuscle(Muscle muscle, boolean isPrimary) {
+//        if (muscleGroup == null) {
+//            muscleGroup = new ArrayList<>();
+//        }
+//        ExerciseMuscle exerciseMuscle = ExerciseMuscle
+//                .builder()
+//                .muscle(muscle)
+//                .exercise(this)
+//                .isPrimary(isPrimary)
+//                .build();
+//        muscleGroup.add(exerciseMuscle);
+//    }
 }
