@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ExerciseRepo extends JpaRepository<ExerciseInfo, Integer> {
+public interface ExerciseInfoRepo extends JpaRepository<ExerciseInfo, Integer> {
     Optional<ExerciseInfo> findExerciseByName(String name);
 
     @Query("select ex from ExerciseInfo ex " +
