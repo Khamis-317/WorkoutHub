@@ -2,20 +2,18 @@ package com.WorkoutHub.workout_hub.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 
-@Entity
-@Table(name = "gym_rat_profiles")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
+@Entity
+@Table(name = "gym_rat_profiles")
 public class GymRatProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -6,21 +6,20 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "muscles", uniqueConstraints = {
-@UniqueConstraint(name = "UniqueMuscleName", columnNames = {"name"})
-})
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
+@Entity
+@Table(name = "muscles")
 public class Muscle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Enumerated(value = EnumType.STRING)
@@ -35,5 +34,5 @@ public class Muscle {
                 CascadeType.DETACH,
                 CascadeType.REFRESH
     })
-    private List<Exercise> activationExercises;
+    private List<ExerciseInfo> activationExercises;
 }
