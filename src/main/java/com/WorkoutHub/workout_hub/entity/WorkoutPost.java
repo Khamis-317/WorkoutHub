@@ -1,15 +1,13 @@
 package com.WorkoutHub.workout_hub.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.WorkoutHub.workout_hub.enums.Visibility;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "workout_posts")
@@ -17,8 +15,16 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-public class WorkoutPost extends Workout{
+@Builder
+public class WorkoutPost{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer Id;
+
+    @Column(name = "title", nullable = false)
+    String title;
 
     @Column(name = "caption")
     String caption;
@@ -29,15 +35,7 @@ public class WorkoutPost extends Workout{
     @Column(name = "finish_time")
     LocalDateTime finishTime;
 
-    @Override
-    public String toString() {
-        return "WorkoutPost{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", caption='" + caption + '\'' +
-                ", startTime=" + startTime +
-                ", finishTime=" + finishTime +
-                ", gymRatID=" + gymRat.getId() +
-                '}';
-    }
+    @Column(name = "visibility", nullable = false)
+    Visibility visibility;
+
 }

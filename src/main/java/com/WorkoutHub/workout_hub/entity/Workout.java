@@ -3,7 +3,10 @@ package com.WorkoutHub.workout_hub.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "workouts")
@@ -11,18 +14,23 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Workout {
+@Builder
+public class Workout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    int id;
+    private Integer id;
 
-    @Column(name = "title", nullable = false)
-    String title;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     //region Relations with other entities
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "workout_post_id", nullable = false)
+    WorkoutPost workoutpost;
+
     @ManyToOne(
             cascade = {CascadeType.DETACH,
                     CascadeType.MERGE,
@@ -30,7 +38,7 @@ public abstract class Workout {
                     CascadeType.REFRESH
             })
     @JoinColumn(name = "gym_rat_id")
-    GymRat gymRat;
+    private GymRat gymRat;
     //endregion
 
 

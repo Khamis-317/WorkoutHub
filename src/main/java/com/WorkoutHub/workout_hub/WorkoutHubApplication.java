@@ -24,10 +24,10 @@ import java.util.List;
 @SpringBootApplication
 public class WorkoutHubApplication {
 
-	private final WorkoutPostRepo workoutPostRepo;
 
-	public WorkoutHubApplication(WorkoutPostRepo workoutPostRepo) {
-		this.workoutPostRepo = workoutPostRepo;
+
+	public WorkoutHubApplication() {
+
 	}
 
 	public static void main(String[] args) {
@@ -36,11 +36,7 @@ public class WorkoutHubApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(
-			ExerciseRepo exRepo,
-			MuscleRepo mRepo,
-			GymRatRepo gymRatRepo,
-			WorkoutRepo workoutRepo,
-			WorkoutPostRepo workoutPostRepo,
+
 
 	) {
 		return runner -> {
