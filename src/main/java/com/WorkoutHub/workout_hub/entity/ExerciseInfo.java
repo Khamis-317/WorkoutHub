@@ -7,11 +7,12 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
+@Entity
 @Table(name = "exercise_info")
 public class ExerciseInfo {
     @Id

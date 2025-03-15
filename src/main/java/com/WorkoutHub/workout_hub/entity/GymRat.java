@@ -1,22 +1,20 @@
 package com.WorkoutHub.workout_hub.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "gym_rats")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
+@Entity
+@Table(name = "gym_rats")
 public class GymRat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

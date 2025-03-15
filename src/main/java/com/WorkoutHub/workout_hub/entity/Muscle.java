@@ -6,12 +6,13 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "muscles")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
+@Getter
 @Builder
+@Entity
+@Table(name = "muscles")
 public class Muscle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
