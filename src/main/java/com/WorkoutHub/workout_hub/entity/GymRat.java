@@ -43,6 +43,9 @@ public class GymRat {
 
     @OneToMany(mappedBy = "gymRat", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     List<Workout> workouts;
+
+    @OneToMany(mappedBy = "gymRat", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    List<Routine> routines;
     //endregion
 
     //region Adding, removing from/to list
@@ -56,6 +59,19 @@ public class GymRat {
     public void removeWorkout(Workout theWorkout){
         workouts.remove(theWorkout);
         theWorkout.setGymRat(null);
+    }
+
+
+    public void addRoutine(Routine theRoutine){
+        if (routines == null)
+            routines = new ArrayList<>();
+        theRoutine.setGymRat(this);
+        routines.add(theRoutine);
+    }
+
+    public void removeRoutine(Routine theRoutine){
+        routines.remove(theRoutine);
+        theRoutine.setGymRat(null);
     }
     //endregion
 }
