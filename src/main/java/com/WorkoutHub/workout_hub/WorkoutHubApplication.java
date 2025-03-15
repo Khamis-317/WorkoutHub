@@ -1,30 +1,14 @@
 package com.WorkoutHub.workout_hub;
 
 
-import com.WorkoutHub.workout_hub.entity.*;
-import com.WorkoutHub.workout_hub.enums.Visibility;
-import com.WorkoutHub.workout_hub.repository.*;
-
-import com.WorkoutHub.workout_hub.entity.Exercise;
-import com.WorkoutHub.workout_hub.entity.Muscle;
-import com.WorkoutHub.workout_hub.enums.MuscleImportance;
-import com.WorkoutHub.workout_hub.repository.ExerciseRepo;
-import com.WorkoutHub.workout_hub.repository.MuscleRepo;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-
 
 @SpringBootApplication
 public class WorkoutHubApplication {
-
-
 
 	public WorkoutHubApplication() {
 
@@ -44,17 +28,17 @@ public class WorkoutHubApplication {
 //			createGymRat(gymRatRepo);
 //			createWorkoutPostAttachToUser(gymRatRepo);
 //			createWorkoutRoutineAttachToUser(gymRatRepo);
-			//fetchAllUserPosts(gymRatRepo);
-			//fetchAllUserPosts(workoutPostRepo);
+//			fetchAllUserPosts(gymRatRepo);
+//			fetchAllUserPosts(workoutPostRepo);
 //			fetchAllUserRoutine(gymRatRepo);
 //			fetchAllUserRoutine(workoutRoutineRepo);
-			//updateExistingWorkout(workoutPostRepo);
-	//		updateExistingRoutine(workoutRoutineRepo);
+//			updateExistingWorkout(workoutPostRepo);
+//			updateExistingRoutine(workoutRoutineRepo);
 //			deleteWorkoutPost(gymRatRepo);
 //			deleteWorkoutPost(workoutRepo);
-			//deleteWorkoutRoutine(gymRatRepo);
-			//deleteWorkoutRoutine(workoutRoutineRepo);
-			//deleteUser(gymRatRepo);
+//			deleteWorkoutRoutine(gymRatRepo);
+//			deleteWorkoutRoutine(workoutRoutineRepo);
+//			deleteUser(gymRatRepo);
 
 
 		};

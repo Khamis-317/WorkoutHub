@@ -6,17 +6,14 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BinaryOperator;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "exercises", uniqueConstraints = {
-        @UniqueConstraint(name = "UniqueExerciseName", columnNames = {"name"})
-})
-public class Exercise {
+@Table(name = "exercise_info")
+public class ExerciseInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -39,7 +36,7 @@ public class Exercise {
     })
     @JoinTable(
             name = "exercise_muscles",
-            joinColumns = @JoinColumn(name = "exercise_id"),
+            joinColumns = @JoinColumn(name = "exercise_info_id"),
             inverseJoinColumns = @JoinColumn(name = "muscle_id")
     )
     private List<Muscle> muscleGroup;

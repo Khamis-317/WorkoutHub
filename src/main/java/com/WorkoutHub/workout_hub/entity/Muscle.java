@@ -7,9 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "muscles", uniqueConstraints = {
-@UniqueConstraint(name = "UniqueMuscleName", columnNames = {"name"})
-})
+@Table(name = "muscles")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,7 +18,7 @@ public class Muscle {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Enumerated(value = EnumType.STRING)
@@ -35,5 +33,5 @@ public class Muscle {
                 CascadeType.DETACH,
                 CascadeType.REFRESH
     })
-    private List<Exercise> activationExercises;
+    private List<ExerciseInfo> activationExercises;
 }
