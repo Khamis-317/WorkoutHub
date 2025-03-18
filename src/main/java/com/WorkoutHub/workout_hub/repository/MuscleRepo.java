@@ -12,11 +12,10 @@ import java.util.Optional;
 
 @Repository
 public interface MuscleRepo extends JpaRepository<Muscle, Integer> {
-
+    Optional<Muscle> findByName(String name);
+    
     @Query("select m from Muscle m " +
             "join fetch m.activationExercises " +
             "where m.id = :data")
     Optional<Muscle> findMuscleAndExercisesById(@Param("data") int id);
-
-    Optional<Muscle> findByNameAndImportance(String name, MuscleImportance importance);
 }

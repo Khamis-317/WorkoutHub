@@ -6,6 +6,7 @@ import com.WorkoutHub.workout_hub.entity.Muscle;
 import com.WorkoutHub.workout_hub.enums.MuscleImportance;
 import com.WorkoutHub.workout_hub.repository.ExerciseInfoRepo;
 import com.WorkoutHub.workout_hub.repository.MuscleRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,8 +46,8 @@ public class WorkoutHubApplication {
 //			deleteWorkoutRoutine(workoutRoutineRepo);
 //			deleteUser(gymRatRepo);
 
-			// createExercises(ex);
-			addExerciseWithExistingMuscles(ex, m);
+//			createExercises(ex);
+//			addExerciseWithExistingMuscles(ex, m);
 
 		};
 	}
@@ -190,18 +191,18 @@ public class WorkoutHubApplication {
 		// Bench Press - Muscles linkage
 		ExerciseInfo ex1 = ExerciseInfo.builder().name("Barbell Bench Press").instructions("Push the bar").build();
 
-		Muscle m1 = Muscle.builder().name("Chest").importance(MuscleImportance.PRIMARY).build();
-		Muscle m2 = Muscle.builder().name("Triceps").importance(MuscleImportance.SECONDARY).build();
+		Muscle m1 = Muscle.builder().name("Chest").build();
+		Muscle m2 = Muscle.builder().name("Triceps").build();
 
-		ex1.addMuscle(m1);
-		ex1.addMuscle(m2);
+		ex1.addMuscle(m1, MuscleImportance.PRIMARY);
+		ex1.addMuscle(m2, MuscleImportance.SECONDARY);
 
 		// Shoulder Press - Muscles linkage
 		ExerciseInfo ex2 = ExerciseInfo.builder().name("Shoulder Press").instructions("Push the bar up").build();
 
-		Muscle m3 = Muscle.builder().name("Shoulder").importance(MuscleImportance.PRIMARY).build();
+		Muscle m3 = Muscle.builder().name("Shoulder").build();
 
-		ex2.addMuscle(m3);
+		ex2.addMuscle(m3, MuscleImportance.PRIMARY);
 
 		repo.save(ex1);
 		repo.save(ex2);
@@ -216,14 +217,14 @@ public class WorkoutHubApplication {
 
 			String muscleName = "Shoulder";
 			MuscleImportance imp = MuscleImportance.PRIMARY;
-			Muscle muscle = mRepo.findByNameAndImportance(muscleName, imp)
-					.orElse(Muscle.builder().name(muscleName).importance(imp).build());
+			Muscle muscle = mRepo.findByName(muscleName)
+					.orElse(Muscle.builder().name(muscleName).build());
 
 			// to force a merge in the second save
 			// because persisting an existing muscle would give an error
 			exRepo.save(ex);
 
-			ex.addMuscle(muscle);
+			ex.addMuscle(muscle, imp);
 			exRepo.save(ex);
 		}
 	}
