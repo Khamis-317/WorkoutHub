@@ -1,6 +1,6 @@
 package com.WorkoutHub.workout_hub.entity;
 
-
+import com.WorkoutHub.workout_hub.enums.MuscleImportance;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,39 +29,32 @@ public class ExerciseInfo {
     // saving an (exercise) with a muscle group will also save the (muscles) in their table
     // deleting an (exercise) doesn't delete the (muscles) in the muscle group
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE,
-            CascadeType.DETACH,
-            CascadeType.REFRESH
-    })
-    @JoinTable(
-            name = "exercise_muscles",
-            joinColumns = @JoinColumn(name = "exercise_info_id"),
-            inverseJoinColumns = @JoinColumn(name = "muscle_id")
+    @OneToMany(
+            mappedBy = "exercise",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL
     )
-    private List<Muscle> muscleGroup;
+    private List<ExerciseMuscle> muscleGroup;
 
     // convenience methods
-    public void addMuscle(Muscle muscle) {
+    public void addMuscle(Muscle muscle, MuscleImportance importance) {
         if (muscleGroup == null) {
             muscleGroup = new ArrayList<>();
         }
-        muscleGroup.add(muscle);
-        // muscle.addExercise(this);
+        ExerciseMuscle exerciseMuscle = ExerciseMuscle
+                .builder()
+                .exercise(this)
+                .muscle(muscle)
+                .importance(importance)
+                .build();
+        muscleGroup.add(exerciseMuscle);
     }
+}
 
-
-//    public void addExerciseMuscle(Muscle muscle, boolean isPrimary) {
+//    public void addMuscle(Muscle muscle) {
 //        if (muscleGroup == null) {
 //            muscleGroup = new ArrayList<>();
 //        }
-//        ExerciseMuscle exerciseMuscle = ExerciseMuscle
-//                .builder()
-//                .muscle(muscle)
-//                .exercise(this)
-//                .isPrimary(isPrimary)
-//                .build();
-//        muscleGroup.add(exerciseMuscle);
+//        muscleGroup.add(muscle);
+//        // muscle.addExercise(this);
 //    }
-}

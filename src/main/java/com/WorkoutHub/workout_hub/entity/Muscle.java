@@ -22,17 +22,10 @@ public class Muscle {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "importance")
-    private MuscleImportance importance;
-
-    @ManyToMany(mappedBy = "muscleGroup",
+    @ToString.Exclude
+    @OneToMany(mappedBy = "muscle",
             fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE,
-                CascadeType.DETACH,
-                CascadeType.REFRESH
-    })
-    private List<ExerciseInfo> activationExercises;
+            cascade = CascadeType.ALL
+    )
+    private List<ExerciseMuscle> activationExercises;
 }
