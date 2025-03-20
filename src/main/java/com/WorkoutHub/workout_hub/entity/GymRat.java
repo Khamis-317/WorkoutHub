@@ -35,9 +35,12 @@ public class GymRat {
     private LocalDateTime createdAt;
 
     //region Relations with other entities
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "gym_rat_profile_id", nullable = false)
-    private GymRatProfile info;
+    // lazy fetch is used to get profile data only on demand
+    // foreign key is put on the principal side (gym_rat)
+    // to enforce the uni-directional relationship
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "gym_rat_profile_id" ,nullable = false)
+    private GymRatProfile profile;
 
     @OneToMany(mappedBy = "gymRat", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     List<Workout> workouts;

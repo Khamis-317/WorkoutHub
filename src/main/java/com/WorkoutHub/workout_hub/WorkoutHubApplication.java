@@ -2,15 +2,20 @@ package com.WorkoutHub.workout_hub;
 
 
 import com.WorkoutHub.workout_hub.entity.ExerciseInfo;
+import com.WorkoutHub.workout_hub.entity.GymRat;
+import com.WorkoutHub.workout_hub.entity.GymRatProfile;
 import com.WorkoutHub.workout_hub.entity.Muscle;
 import com.WorkoutHub.workout_hub.enums.MuscleImportance;
 import com.WorkoutHub.workout_hub.repository.ExerciseInfoRepo;
+import com.WorkoutHub.workout_hub.repository.GymRatRepo;
 import com.WorkoutHub.workout_hub.repository.MuscleRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.time.LocalDate;
 
 
 @SpringBootApplication
@@ -27,11 +32,12 @@ public class WorkoutHubApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(
 			ExerciseInfoRepo ex,
-			MuscleRepo m
+			MuscleRepo m,
+			GymRatRepo gymRatRepo
 	) {
 		return runner -> {
 
-//			createGymRat(gymRatRepo);
+			createGymRat(gymRatRepo);
 //			createWorkoutPostAttachToUser(gymRatRepo);
 //			createWorkoutRoutineAttachToUser(gymRatRepo);
 //			fetchAllUserPosts(gymRatRepo);
@@ -169,24 +175,24 @@ public class WorkoutHubApplication {
 //
 //	}
 //	//endregion
-//
-//	private void createGymRat(GymRatRepo gymRatRepo) {
-//		GymRat gymRat = GymRat.builder().
-//				email("mohamedkhamis20045@gmail.com").
-//				password("1234").
-//				username("mohamedkhaims")
-//				.build();
-//		GymRatProfile gymRatProfile = GymRatProfile.builder()
-//				.firstName("Mohamed")
-//				.lastName("Khamis")
-//				.birthDate(LocalDate.of(2004,4,23))
-//				.country("Egypt")
-//				.build();
-//		gymRat.setInfo(gymRatProfile);
-//
-//		gymRatRepo.save(gymRat);
-//	}
-//
+
+	private void createGymRat(GymRatRepo gymRatRepo) {
+		GymRat gymRat = GymRat.builder().
+				email("mohamedkhamis20045@gmail.com").
+				password("1234").
+				username("mohamedkhamis")
+				.build();
+		GymRatProfile gymRatProfile = GymRatProfile.builder()
+				.firstName("Mohamed")
+				.lastName("Khamis")
+				.birthDate(LocalDate.of(2004,4,23))
+				.country("Egypt")
+				.build();
+		gymRat.setProfile(gymRatProfile);
+
+		gymRatRepo.save(gymRat);
+	}
+
 	private void createExercises(ExerciseInfoRepo repo) {
 		// Bench Press - Muscles linkage
 		ExerciseInfo ex1 = ExerciseInfo.builder().name("Barbell Bench Press").instructions("Push the bar").build();
