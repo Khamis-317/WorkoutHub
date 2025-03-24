@@ -4,6 +4,9 @@ package com.WorkoutHub.workout_hub.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "exercises")
 @Getter
@@ -17,7 +20,8 @@ public class Exercise {
     @Column(name =  "id")
     private Integer id;
 
-    private int rest_time;
+    @Column(name = "rest_time")
+    private int restTime;
 
     @ManyToOne(
             cascade = {CascadeType.DETACH,
@@ -26,7 +30,7 @@ public class Exercise {
                     CascadeType.REFRESH
             })
     @JoinColumn(name = "exercise_info_id", nullable = false)
-    ExerciseInfo exerciseInfo;
+    private ExerciseInfo exerciseInfo;
 
 
     @ManyToOne(
@@ -36,7 +40,7 @@ public class Exercise {
             CascadeType.REFRESH
     })
     @JoinColumn(name =  "workout_id")
-    Workout workout;
+    private Workout workout;
 
 
     @ManyToOne(
@@ -46,6 +50,26 @@ public class Exercise {
                     CascadeType.REFRESH
             })
     @JoinColumn(name =  "routine_id")
-    Routine routine;
+    private Routine routine;
+
+
+    @OneToMany(
+            mappedBy = "exercise" ,
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<Set> sets;
+
+
+    //region Adding, removing from/to list
+    public void addExercise(Set theSet){
+        if (sets == null){
+            sets = new ArrayList<>();
+        }
+        theSet.setExercise(this);
+        sets.add(theSet);
+    }
+    //endregion
 
 }
