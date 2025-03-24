@@ -27,8 +27,7 @@ public class Workout {
 
     //region Relations with other entities
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "workout_post_id", nullable = false)
+    @OneToOne(mappedBy = "workout")
     WorkoutPost workoutpost;
 
     @ManyToOne(
