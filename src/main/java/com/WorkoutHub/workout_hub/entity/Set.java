@@ -26,6 +26,7 @@ public class Set {
     private double weight;
 
     @Column(name = "set_type")
+    @Enumerated(value = EnumType.STRING)
     private SetType setType;
 
     @Column(name = "is_completed")
