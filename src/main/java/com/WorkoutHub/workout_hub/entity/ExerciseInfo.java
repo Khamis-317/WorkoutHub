@@ -36,6 +36,17 @@ public class ExerciseInfo {
     )
     private List<ExerciseMuscle> muscleGroup;
 
+
+    //deleting ex_info would delete all instances
+    @OneToMany(
+            mappedBy = "exerciseInfo" ,
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<Exercise> exercises;
+
+
     // convenience methods
     public void addMuscle(Muscle muscle, MuscleImportance importance) {
         if (muscleGroup == null) {
@@ -48,6 +59,15 @@ public class ExerciseInfo {
                 .importance(importance)
                 .build();
         muscleGroup.add(exerciseMuscle);
+    }
+
+
+    public void addExercise(Exercise theExercise){
+        if (exercises == null){
+            exercises = new ArrayList<>();
+        }
+        theExercise.setExerciseInfo(this);
+        exercises.add(theExercise);
     }
 }
 

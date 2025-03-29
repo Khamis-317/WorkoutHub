@@ -37,7 +37,7 @@ public class WorkoutHubApplication {
 	) {
 		return runner -> {
 
-			createGymRat(gymRatRepo);
+		//	createGymRat(gymRatRepo);
 //			createWorkoutPostAttachToUser(gymRatRepo);
 //			createWorkoutRoutineAttachToUser(gymRatRepo);
 //			fetchAllUserPosts(gymRatRepo);
