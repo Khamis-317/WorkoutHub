@@ -6,6 +6,8 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -27,8 +29,7 @@ public class Workout {
 
     //region Relations with other entities
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "workout_post_id", nullable = false)
+    @OneToOne(mappedBy = "workout")
     WorkoutPost workoutpost;
 
     @ManyToOne(
@@ -39,8 +40,26 @@ public class Workout {
             })
     @JoinColumn(name = "gym_rat_id")
     private GymRat gymRat;
+
+    //Could be Eager, Lazy for Posts
+    @OneToMany(
+            mappedBy = "workout" ,
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    List<Exercise> exercises;
     //endregion
 
 
+    //region Adding, removing from/to list
+    public void addExercise(Exercise theExercise){
+        if (exercises == null){
+            exercises = new ArrayList<>();
+        }
+        theExercise.setWorkout(this);
+        exercises.add(theExercise);
+    }
+    //endregion
 
 }

@@ -38,4 +38,8 @@ public class WorkoutPost{
     @Column(name = "visibility", nullable = false)
     Visibility visibility;
 
+    @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @JoinColumn(name = "workout_id", nullable = false, unique = true)
+    Workout workout;
+
 }
