@@ -30,14 +30,14 @@ public class GymRatServiceImpl implements GymRatService {
     }
 
     @Override
-    public GymRat getGymRat(int id) {
+    public GymRat getGymRatById(int id) {
         Optional<GymRat> gymRat = gymRatRepository.findById(id);
         return gymRat.orElse(null);
     }
 
     // updatedGymRat contains the updated info (must not contain the id)
     @Override
-    public void updateGymRat(int id, GymRat updatedGymRat) {
+    public void updateGymRatById(int id, GymRat updatedGymRat) {
         // setting the id attribute make the save method merge into
         // updatedGymRat an existing record instead of creating a new one
         updatedGymRat.setId(id);
@@ -45,7 +45,7 @@ public class GymRatServiceImpl implements GymRatService {
     }
 
     @Override
-    public void deleteGymRat(int id) {
+    public void deleteGymRatById(int id) {
         gymRatRepository.deleteById(id);
     }
 }
