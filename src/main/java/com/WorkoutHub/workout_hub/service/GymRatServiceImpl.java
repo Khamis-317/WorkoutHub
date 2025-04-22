@@ -1,6 +1,8 @@
 package com.WorkoutHub.workout_hub.service;
 
+import com.WorkoutHub.workout_hub.dto.GymRatDto;
 import com.WorkoutHub.workout_hub.entity.GymRat;
+import com.WorkoutHub.workout_hub.entity.GymRatProfile;
 import com.WorkoutHub.workout_hub.repository.GymRatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,14 +20,17 @@ public class GymRatServiceImpl implements GymRatService {
         this.gymRatRepository = grRepo;
     }
 
-
     @Override
     public List<GymRat> getAllGymRats() {
         return gymRatRepository.findAll();
     }
 
     @Override
-    public void createGymRat(GymRat gymrat) {
+    public void createGymRat(GymRatDto dto) {
+        // TODO: add validation logic
+        GymRat gymrat = new GymRat(dto);
+        GymRatProfile gymRatProfile = new GymRatProfile(dto);
+        gymrat.setProfile(gymRatProfile);
         gymRatRepository.save(gymrat);
     }
 

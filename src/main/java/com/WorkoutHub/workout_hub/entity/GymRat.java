@@ -1,5 +1,6 @@
 package com.WorkoutHub.workout_hub.entity;
 
+import com.WorkoutHub.workout_hub.dto.GymRatDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -48,6 +49,12 @@ public class GymRat {
     @OneToMany(mappedBy = "gymRat", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     List<Routine> routines;
     //endregion
+
+    public GymRat(GymRatDto dto) {
+        this.username = dto.getUsername();
+        this.email = dto.getEmail();
+        this.password = dto.getPassword();
+    }
 
     //region Adding, removing from/to list
     public void addWorkout(Workout theWorkout){

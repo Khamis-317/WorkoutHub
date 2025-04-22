@@ -1,5 +1,6 @@
 package com.WorkoutHub.workout_hub.controller;
 
+import com.WorkoutHub.workout_hub.dto.GymRatDto;
 import com.WorkoutHub.workout_hub.entity.GymRat;
 import com.WorkoutHub.workout_hub.response.GenericResponse;
 import com.WorkoutHub.workout_hub.service.GymRatService;
@@ -29,6 +30,16 @@ public class GymRatController {
         return response;
     }
 
+    @PostMapping("/gymrats")
+    public GenericResponse<?> createGymRat(@RequestBody GymRatDto gymrat) {
+        gymRatService.createGymRat(gymrat);
+        GenericResponse<?> response = GenericResponse.builder()
+                .message("A new gymrat is created successfully")
+                .success(true)
+                .build();
+        return response;
+    }
+
     @GetMapping("/gymrats/{id}")
     public GenericResponse<?> getGymRat(@PathVariable int id) {
         GymRat gymrat = gymRatService.getGymRatById(id);
@@ -36,16 +47,6 @@ public class GymRatController {
                 .data(gymrat)
                 .success(true)
                 .message("Gymrat of id: " + id)
-                .build();
-        return response;
-    }
-
-    @PostMapping("/gymrats")
-    public GenericResponse<?> createGymRat(@RequestBody GymRat gymrat) {
-        gymRatService.createGymRat(gymrat);
-        GenericResponse<?> response = GenericResponse.builder()
-                .message("A new gymrat is created successfully")
-                .success(true)
                 .build();
         return response;
     }

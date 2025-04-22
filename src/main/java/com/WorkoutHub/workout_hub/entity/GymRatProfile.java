@@ -1,6 +1,7 @@
 package com.WorkoutHub.workout_hub.entity;
 
 
+import com.WorkoutHub.workout_hub.dto.GymRatDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,4 +36,12 @@ public class GymRatProfile {
 
     @Column(name = "bio")
     private String bio;
+
+    public GymRatProfile(GymRatDto dto) {
+        this.firstName = dto.getFirstName();
+        this.lastName = dto.getLastName();
+        this.country = dto.getCountry();
+        this.birthDate = dto.getBirthDate();
+        this.bio = dto.getBio();
+    }
 }
