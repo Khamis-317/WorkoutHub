@@ -1,14 +1,15 @@
 package com.WorkoutHub.workout_hub.service;
 
-import com.WorkoutHub.workout_hub.dto.GymRatDto;
+import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.entity.GymRat;
 
 import java.util.List;
 
 public interface GymRatService {
-    List<GymRat> getAllGymRats();
-    void createGymRat(GymRatDto dto);
-    GymRat getGymRatById(int id);
+    List<UserDto> getAllGymRats();
+    void createGymRat(GymRatCreationDto creationDto);
+    UserDto getGymRatById(int id);
     void updateGymRatById(int id, GymRat updatedGymRat);
     void deleteGymRatById(int id);
 }

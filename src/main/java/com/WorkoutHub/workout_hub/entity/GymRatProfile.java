@@ -1,7 +1,7 @@
 package com.WorkoutHub.workout_hub.entity;
 
 
-import com.WorkoutHub.workout_hub.dto.GymRatDto;
+import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,14 +21,14 @@ public class GymRatProfile {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
 
     private String lastName;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "country")
     private String country;
 
     @Column(name = "birth_date")
@@ -37,7 +37,7 @@ public class GymRatProfile {
     @Column(name = "bio")
     private String bio;
 
-    public GymRatProfile(GymRatDto dto) {
+    public GymRatProfile(GymRatCreationDto dto) {
         this.firstName = dto.getFirstName();
         this.lastName = dto.getLastName();
         this.country = dto.getCountry();

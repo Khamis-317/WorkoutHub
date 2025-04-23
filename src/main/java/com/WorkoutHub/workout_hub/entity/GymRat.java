@@ -1,6 +1,6 @@
 package com.WorkoutHub.workout_hub.entity;
 
-import com.WorkoutHub.workout_hub.dto.GymRatDto;
+import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,7 +40,7 @@ public class GymRat {
     // foreign key is put on the principal side (gym_rat)
     // to enforce the uni-directional relationship
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "gym_rat_profile_id" ,nullable = false)
+    @JoinColumn(name = "gym_rat_profile_id")
     private GymRatProfile profile;
 
     @OneToMany(mappedBy = "gymRat", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -50,10 +50,10 @@ public class GymRat {
     List<Routine> routines;
     //endregion
 
-    public GymRat(GymRatDto dto) {
+    public GymRat(GymRatCreationDto dto) {
         this.username = dto.getUsername();
         this.email = dto.getEmail();
-        this.password = dto.getPassword();
+        this.password = dto.getPassword();  // saving plain password (encryption needed)
     }
 
     //region Adding, removing from/to list

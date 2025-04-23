@@ -1,7 +1,9 @@
 package com.WorkoutHub.workout_hub.controller;
 
-import com.WorkoutHub.workout_hub.dto.GymRatDto;
+import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.entity.GymRat;
+import com.WorkoutHub.workout_hub.exception.GymRatNotFoundException;
 import com.WorkoutHub.workout_hub.response.GenericResponse;
 import com.WorkoutHub.workout_hub.service.GymRatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class GymRatController {
 
     @GetMapping("/gymrats")
     public GenericResponse<?> getAllGymRats() {
-        List<GymRat> gymrats = gymRatService.getAllGymRats();
+        List<UserDto> gymrats = gymRatService.getAllGymRats();
         GenericResponse<?> response = GenericResponse.builder()
                 .data(gymrats)
                 .success(true)
@@ -31,7 +33,7 @@ public class GymRatController {
     }
 
     @PostMapping("/gymrats")
-    public GenericResponse<?> createGymRat(@RequestBody GymRatDto gymrat) {
+    public GenericResponse<?> createGymRat(@RequestBody GymRatCreationDto gymrat) {
         gymRatService.createGymRat(gymrat);
         GenericResponse<?> response = GenericResponse.builder()
                 .message("A new gymrat is created successfully")
@@ -42,12 +44,20 @@ public class GymRatController {
 
     @GetMapping("/gymrats/{id}")
     public GenericResponse<?> getGymRat(@PathVariable int id) {
-        GymRat gymrat = gymRatService.getGymRatById(id);
-        GenericResponse<?> response = GenericResponse.builder()
-                .data(gymrat)
-                .success(true)
-                .message("Gymrat of id: " + id)
-                .build();
+        GenericResponse<?> response;
+        try {
+            UserDto gymrat = gymRatService.getGymRatById(id);
+            response = GenericResponse.builder()
+                    .data(gymrat)
+                    .success(true)
+                    .message("Gymrat of id: " + id)
+                    .build();
+        } catch (GymRatNotFoundException e) {
+            response = GenericResponse.builder()
+                    .success(false)
+                    .message(e.getMessage())
+                    .build();
+        }
         return response;
     }
 
