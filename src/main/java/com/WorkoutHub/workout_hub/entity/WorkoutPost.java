@@ -36,6 +36,7 @@ public class WorkoutPost{
     LocalDateTime finishTime;
 
     @Column(name = "visibility", nullable = false)
+    @Enumerated(value = EnumType.STRING)
     Visibility visibility;
 
     @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
