@@ -1,6 +1,6 @@
 package com.WorkoutHub.workout_hub.service;
 
-import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.GymRatRequestDto;
 import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.entity.GymRat;
 import com.WorkoutHub.workout_hub.entity.GymRatProfile;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GymRatServiceImpl implements GymRatService {
@@ -25,18 +26,13 @@ public class GymRatServiceImpl implements GymRatService {
 
     @Override
     public List<UserDto> getAllGymRats() {
-        List<UserDto> dtos = new ArrayList<>();
-        List<GymRat> gymrats = gymRatRepository.findAll();
-        for(GymRat gymrat : gymrats) {
-            UserDto dto = new UserDto(gymrat);
-            dtos.add(dto);
-        }
-        return dtos;
+        return gymRatRepository.findAll().stream()
+                .map(UserDto::new)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void createGymRat(GymRatCreationDto creationDto) {
-        // TODO: add validation logic (check existing users)
+    public void createGymRat(GymRatRequestDto creationDto) {
         GymRat gymrat = new GymRat(creationDto);
         GymRatProfile gymRatProfile = new GymRatProfile(creationDto);
         gymrat.setProfile(gymRatProfile);
@@ -45,12 +41,11 @@ public class GymRatServiceImpl implements GymRatService {
 
     @Override
     public UserDto getGymRatById(int id) {
-        UserDto dto;
         Optional<GymRat> gymRat = gymRatRepository.findById(id);
         if(gymRat.isPresent()) {
             return new UserDto(gymRat.get());
         }
-        throw new GymRatNotFoundException("Gym rat with id: " + id + " is not found.");
+        throw new GymRatNotFoundException("Resource Not Found: Gymrat with id: " + id + " is not found.");
     }
 
     // updatedGymRat contains the updated info (must not contain the id)

@@ -1,6 +1,7 @@
 package com.WorkoutHub.workout_hub.entity;
 
-import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.GymRatRequestDto;
+import com.WorkoutHub.workout_hub.dto.ProfileDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,7 +21,7 @@ public class GymRat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -50,10 +51,10 @@ public class GymRat {
     List<Routine> routines;
     //endregion
 
-    public GymRat(GymRatCreationDto dto) {
+    public GymRat(GymRatRequestDto dto) {
         this.username = dto.getUsername();
         this.email = dto.getEmail();
-        this.password = dto.getPassword();  // saving plain password (encryption needed)
+        this.password = dto.getPassword();  // TODO: saving plain password (encryption needed)
     }
 
     //region Adding, removing from/to list

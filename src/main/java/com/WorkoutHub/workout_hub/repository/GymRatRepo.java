@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface GymRatRepo extends JpaRepository<GymRat, Integer> {
 
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }

@@ -1,7 +1,7 @@
 package com.WorkoutHub.workout_hub.entity;
 
 
-import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.GymRatRequestDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +19,7 @@ public class GymRatProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -37,7 +37,7 @@ public class GymRatProfile {
     @Column(name = "bio")
     private String bio;
 
-    public GymRatProfile(GymRatCreationDto dto) {
+    public GymRatProfile(GymRatRequestDto dto) {
         this.firstName = dto.getFirstName();
         this.lastName = dto.getLastName();
         this.country = dto.getCountry();

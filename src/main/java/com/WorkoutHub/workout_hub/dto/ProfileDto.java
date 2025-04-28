@@ -2,15 +2,19 @@ package com.WorkoutHub.workout_hub.dto;
 
 import com.WorkoutHub.workout_hub.entity.GymRat;
 import com.WorkoutHub.workout_hub.entity.GymRatProfile;
-import lombok.NonNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProfileDto {
     // gymrat user data
-    @NonNull
+    private Integer id;
     private String username;
-    @NonNull
     private String email;
 
     // gymrat profile data
@@ -21,6 +25,7 @@ public class ProfileDto {
     private String bio;
 
     public ProfileDto(GymRat gymrat, GymRatProfile profile) {
+        this.id = gymrat.getId();
         this.username = gymrat.getUsername();
         this.email = gymrat.getEmail();
         this.firstName = profile.getFirstName();
