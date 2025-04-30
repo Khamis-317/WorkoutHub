@@ -1,6 +1,7 @@
 package com.WorkoutHub.workout_hub.service;
 
 import com.WorkoutHub.workout_hub.dto.GymRatRequestDto;
+import com.WorkoutHub.workout_hub.dto.ProfileDto;
 import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.entity.GymRat;
 import com.WorkoutHub.workout_hub.entity.GymRatProfile;
@@ -9,7 +10,6 @@ import com.WorkoutHub.workout_hub.repository.GymRatRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,6 +44,15 @@ public class GymRatServiceImpl implements GymRatService {
         Optional<GymRat> gymRat = gymRatRepository.findById(id);
         if(gymRat.isPresent()) {
             return new UserDto(gymRat.get());
+        }
+        throw new GymRatNotFoundException("Resource Not Found: Gymrat with id: " + id + " is not found.");
+    }
+
+    @Override
+    public ProfileDto getGymRatProfileById(int id) {
+        Optional<GymRat> gymRat = gymRatRepository.findGymRatWithProfileById(id);
+        if(gymRat.isPresent()) {
+            return new ProfileDto(gymRat.get());
         }
         throw new GymRatNotFoundException("Resource Not Found: Gymrat with id: " + id + " is not found.");
     }

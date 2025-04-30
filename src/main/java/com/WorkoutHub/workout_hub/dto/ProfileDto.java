@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,6 +17,7 @@ public class ProfileDto {
     private Integer id;
     private String username;
     private String email;
+    private LocalDateTime createdAt;
 
     // gymrat profile data
     private String firstName;
@@ -24,10 +26,12 @@ public class ProfileDto {
     private LocalDate birthDate;
     private String bio;
 
-    public ProfileDto(GymRat gymrat, GymRatProfile profile) {
+    public ProfileDto(GymRat gymrat) {
+        GymRatProfile profile = gymrat.getProfile();
         this.id = gymrat.getId();
         this.username = gymrat.getUsername();
         this.email = gymrat.getEmail();
+        this.createdAt = gymrat.getCreatedAt();
         this.firstName = profile.getFirstName();
         this.lastName = profile.getLastName();
         this.country = profile.getCountry();

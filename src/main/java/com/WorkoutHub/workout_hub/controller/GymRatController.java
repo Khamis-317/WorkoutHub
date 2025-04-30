@@ -1,6 +1,7 @@
 package com.WorkoutHub.workout_hub.controller;
 
 import com.WorkoutHub.workout_hub.dto.GymRatRequestDto;
+import com.WorkoutHub.workout_hub.dto.ProfileDto;
 import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.response.GenericResponse;
 import com.WorkoutHub.workout_hub.service.GymRatService;
@@ -22,7 +23,7 @@ public class GymRatController {
         this.gymRatService = grService;
     }
 
-    // Expose
+    // Expose an endpoint to list all current gymrats
     @GetMapping("/gymrats")
     public ResponseEntity<?> getAllGymRats() {
         List<UserDto> gymrats = gymRatService.getAllGymRats();
@@ -30,6 +31,7 @@ public class GymRatController {
         return new ResponseEntity<>(body ,HttpStatus.OK);
     }
 
+    // Expose an endpoint to create a new gymrat
     @PostMapping("/gymrats")
     public ResponseEntity<?> createGymRat(@Valid @RequestBody GymRatRequestDto gymrat) {
         gymRatService.createGymRat(gymrat);
@@ -37,11 +39,19 @@ public class GymRatController {
         return new ResponseEntity<>(body, HttpStatus.CREATED);
     }
 
+    // Expose an endpoint to get gymrat by id
     @GetMapping("/gymrats/{id}")
     public ResponseEntity<?> getGymRat(@PathVariable int id) {
-        GenericResponse<?> body;
         UserDto gymrat = gymRatService.getGymRatById(id);
-        body = GenericResponse.success(gymrat, "Gymrat of id: " + id + ".");
+        GenericResponse<?>  body = GenericResponse.success(gymrat, "Gymrat of id: " + id + ".");
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    // Expose an endpoint to get gymrat by id
+    @GetMapping("/gymrats/{id}/profile")
+    public ResponseEntity<?> getGymRatProfile(@PathVariable int id) {
+        ProfileDto gymrat = gymRatService.getGymRatProfileById(id);
+        GenericResponse<?> body = GenericResponse.success(gymrat, "Gymrat of id: " + id + ".");
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
