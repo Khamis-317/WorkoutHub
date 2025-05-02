@@ -45,6 +45,14 @@ public class GenericResponse<T>{
     }
 
     //error response
+    public static <T> GenericResponse<T> error(T data, String message){
+        return GenericResponse.<T>builder()
+                .data(data)
+                .success(false)
+                .message(message)
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
     public static <T> GenericResponse<T> error(String message){
         return GenericResponse.<T>builder()
                 .success(false)

@@ -1,7 +1,7 @@
 package com.WorkoutHub.workout_hub.entity;
 
-import com.WorkoutHub.workout_hub.dto.GymRatRequestDto;
-import com.WorkoutHub.workout_hub.dto.ProfileDto;
+import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -51,10 +51,22 @@ public class GymRat {
     List<Routine> routines;
     //endregion
 
-    public GymRat(GymRatRequestDto dto) {
+    public GymRat(GymRatCreationDto dto) {
         this.username = dto.getUsername();
         this.email = dto.getEmail();
         this.password = dto.getPassword();  // TODO: saving plain password (encryption needed)
+    }
+
+    public void update(GymRatUpdateDto dto) {
+        // update gymrat user data
+        this.username = dto.getUsername() != null ? dto.getUsername() : this.username;
+        this.email = dto.getEmail() != null ? dto.getEmail() : this.email;
+        // update gymrat profile data
+        this.profile.setFirstName(dto.getFirstName() != null ? dto.getFirstName() : this.profile.getFirstName());
+        this.profile.setLastName(dto.getLastName() != null ? dto.getLastName() : this.profile.getLastName());
+        this.profile.setCountry(dto.getCountry() != null ? dto.getCountry() : this.profile.getCountry());
+        this.profile.setBirthDate(dto.getBirthDate() != null ? dto.getBirthDate() : this.profile.getBirthDate());
+        this.profile.setBio(dto.getBio() != null ? dto.getBio() : this.profile.getBio());
     }
 
     //region Adding, removing from/to list

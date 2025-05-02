@@ -1,17 +1,17 @@
 package com.WorkoutHub.workout_hub.service;
 
-import com.WorkoutHub.workout_hub.dto.GymRatRequestDto;
+import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
 import com.WorkoutHub.workout_hub.dto.ProfileDto;
 import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.entity.GymRat;
 import com.WorkoutHub.workout_hub.entity.GymRatProfile;
-import com.WorkoutHub.workout_hub.exception.GymRatNotFoundException;
 import com.WorkoutHub.workout_hub.repository.GymRatRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,7 +32,7 @@ public class GymRatServiceImpl implements GymRatService {
     }
 
     @Override
-    public void createGymRat(GymRatRequestDto creationDto) {
+    public void createGymRat(GymRatCreationDto creationDto) {
         GymRat gymrat = new GymRat(creationDto);
         GymRatProfile gymRatProfile = new GymRatProfile(creationDto);
         gymrat.setProfile(gymRatProfile);
@@ -41,29 +41,25 @@ public class GymRatServiceImpl implements GymRatService {
 
     @Override
     public UserDto getGymRatById(int id) {
-        Optional<GymRat> gymRat = gymRatRepository.findById(id);
-        if(gymRat.isPresent()) {
-            return new UserDto(gymRat.get());
-        }
-        throw new GymRatNotFoundException("Resource Not Found: Gymrat with id: " + id + " is not found.");
+        GymRat gymRat = gymRatRepository.findById(id)
+                 .orElseThrow(() -> new EntityNotFoundException("Entity Not Found: Gymrat with id: " + id + " is not found."));
+        return new UserDto(gymRat);
     }
 
     @Override
     public ProfileDto getGymRatProfileById(int id) {
-        Optional<GymRat> gymRat = gymRatRepository.findGymRatWithProfileById(id);
-        if(gymRat.isPresent()) {
-            return new ProfileDto(gymRat.get());
-        }
-        throw new GymRatNotFoundException("Resource Not Found: Gymrat with id: " + id + " is not found.");
+        GymRat gymRat = gymRatRepository.findGymRatWithProfileById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Entity Not Found: Gymrat with id: " + id + " is not found."));
+        return new ProfileDto(gymRat);
     }
 
-    // updatedGymRat contains the updated info (must not contain the id)
     @Override
-    public void updateGymRatById(int id, GymRat updatedGymRat) {
-        // setting the id attribute make the save method merge into
-        // updatedGymRat an existing record instead of creating a new one
-        updatedGymRat.setId(id);
-        gymRatRepository.save(updatedGymRat);
+    public ProfileDto updateGymRatById(int id, GymRatUpdateDto updateDto) throws EntityNotFoundException {
+        GymRat gymrat = gymRatRepository.findGymRatWithProfileById(id)
+                .orElseThrow(() ->  new EntityNotFoundException("Entity Not Found: Gymrat with id: " + id + " is not found."));
+        gymrat.update(updateDto);
+        gymRatRepository.save(gymrat);
+        return new ProfileDto(gymrat);
     }
 
     @Override

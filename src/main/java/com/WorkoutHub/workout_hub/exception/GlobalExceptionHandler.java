@@ -1,6 +1,7 @@
 package com.WorkoutHub.workout_hub.exception;
 
 import com.WorkoutHub.workout_hub.response.GenericResponse;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     // GymRat Exceptions handlers
-    @ExceptionHandler(GymRatNotFoundException.class)
-    public ResponseEntity<?> handleGymRatNotFoundException(GymRatNotFoundException e) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<?> handleGymRatNotFoundException(EntityNotFoundException e) {
         GenericResponse<?> error = GenericResponse.error(e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
@@ -28,7 +29,7 @@ public class GlobalExceptionHandler {
         e.getBindingResult().getFieldErrors().forEach(
                 error -> errors.put(error.getField(), error.getDefaultMessage())
         );
-        GenericResponse<?> error = GenericResponse.error("Invalid Request Content: " + errors);
+        GenericResponse<?> error = GenericResponse.error(errors, "Invalid Request Content.");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
