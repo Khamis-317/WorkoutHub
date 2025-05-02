@@ -56,6 +56,7 @@ public class GymRatController {
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
+    // Expose an endpoint to update gymrat data
     @PutMapping("/gymrats/{id}")
     public ResponseEntity<?> updateGymRat(@PathVariable int id, @RequestBody GymRatUpdateDto updateDto) {
         ProfileDto updated = gymRatService.updateGymRatById(id, updateDto);
@@ -63,13 +64,11 @@ public class GymRatController {
         return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
-//    @DeleteMapping("/gymrats/{id}")
-//    public GenericResponse<?> deleteGymRat(@PathVariable int id) {
-//        gymRatService.deleteGymRatById(id);
-//        GenericResponse<?> response = GenericResponse.builder()
-//                .success(true)
-//                .message("Gymrat of id: " + id +  " is deleted successfully.")
-//                .build();
-//        return response;
-//    }
+    // Expose an endpoint to delete gymrat along with profile data by id
+    @DeleteMapping("/gymrats/{id}")
+    public ResponseEntity<?> deleteGymRat(@PathVariable int id) {
+        gymRatService.deleteGymRatById(id);
+        GenericResponse<?> body = GenericResponse.success("Gymrat of id: " + id +  " is deleted successfully.");
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
 }

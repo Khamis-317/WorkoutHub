@@ -64,6 +64,9 @@ public class GymRatServiceImpl implements GymRatService {
 
     @Override
     public void deleteGymRatById(int id) {
+        boolean gymratExists = gymRatRepository.existsById(id);
+        if(!gymratExists)
+            throw new EntityNotFoundException("Entity Not Found: Gymrat with id: " + id + " is not found.");
         gymRatRepository.deleteById(id);
     }
 }
