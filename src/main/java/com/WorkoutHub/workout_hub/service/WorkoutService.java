@@ -3,12 +3,13 @@ package com.WorkoutHub.workout_hub.service;
 import com.WorkoutHub.workout_hub.dto.WorkoutDto;
 import com.WorkoutHub.workout_hub.dto.WorkoutSimpleDto;
 import com.WorkoutHub.workout_hub.entity.Workout;
+import com.WorkoutHub.workout_hub.response.PageResponse;
 
 import java.util.List;
 
 public interface WorkoutService {
 
-    List<WorkoutSimpleDto> getAllWorkouts(int userId);
+    PageResponse<WorkoutSimpleDto> getAllWorkouts(int userId, int pageNumber, int pageSize);
 
     WorkoutDto createWorkout(Workout workout, int userId);
 

@@ -3,7 +3,11 @@ package com.WorkoutHub.workout_hub.service;
 import com.WorkoutHub.workout_hub.dto.WorkoutDto;
 import com.WorkoutHub.workout_hub.dto.WorkoutSimpleDto;
 import com.WorkoutHub.workout_hub.entity.Workout;
+import com.WorkoutHub.workout_hub.repository.GymRatRepo;
 import com.WorkoutHub.workout_hub.repository.WorkoutRepo;
+import com.WorkoutHub.workout_hub.response.PageResponse;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +18,19 @@ import java.util.stream.Collectors;
 public class WorkoutServiceImpl implements WorkoutService {
 
     WorkoutRepo workoutRepo;
-
-    WorkoutServiceImpl(WorkoutRepo workoutRepo) {
+    GymRatRepo gymRatRepo;
+    WorkoutServiceImpl(WorkoutRepo workoutRepo, GymRatRepo gymRatRepo) {
         this.workoutRepo = workoutRepo;
+        this.gymRatRepo = gymRatRepo;
     }
 
     @Override
-    public List<WorkoutSimpleDto> getAllWorkouts(int userId) {
-        return workoutRepo.findByGymRatId(userId, PageRequest.of(/* hardcoded should be passed as a parameter*/0, 10))
-                .stream()
-                .map(WorkoutSimpleDto::createDto)
-                .collect(Collectors.toList());
+    public PageResponse<WorkoutSimpleDto> getAllWorkouts(int userId, int pageNumber, int pageSize) {
+        validateUserExistence(userId);
+
+        Page<Workout> page = workoutRepo.findByGymRatId(userId, PageRequest.of(pageNumber, pageSize));
+        Page<WorkoutSimpleDto> workouts = page.map(WorkoutSimpleDto::createDto);
+        return new PageResponse<>(workouts);
     }
 
     @Override
@@ -45,5 +51,12 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public void deleteWorkoutById(int id) {
 
+    }
+
+
+    private void  validateUserExistence(int userId){
+        if (!gymRatRepo.existsById(userId)){
+            throw new EntityNotFoundException("Entity Not Found: Gymrat with id: " + userId + " is not found.");
+        }
     }
 }
