@@ -1,9 +1,15 @@
 package com.WorkoutHub.workout_hub.controller;
 
-import com.WorkoutHub.workout_hub.entity.GymRat;
+import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
+import com.WorkoutHub.workout_hub.dto.ProfileDto;
+import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.response.GenericResponse;
 import com.WorkoutHub.workout_hub.service.GymRatService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,55 +24,51 @@ public class GymRatController {
         this.gymRatService = grService;
     }
 
+    // Expose an endpoint to list all current gymrats
     @GetMapping("/gymrats")
-    public GenericResponse<?> getAllGymRats() {
-        List<GymRat> gymrats = gymRatService.getAllGymRats();
-        GenericResponse<?> response = GenericResponse.builder()
-                .data(gymrats)
-                .success(true)
-                .message("List of all the current gymrats")
-                .build();
-        return response;
+    public ResponseEntity<?> getAllGymRats() {
+        List<UserDto> gymrats = gymRatService.getAllGymRats();
+        GenericResponse<?> body = GenericResponse.success(gymrats, "List of all the current gymrats.");
+        return new ResponseEntity<>(body ,HttpStatus.OK);
     }
 
-    @GetMapping("/gymrats/{id}")
-    public GenericResponse<?> getGymRat(@PathVariable int id) {
-        GymRat gymrat = gymRatService.getGymRatById(id);
-        GenericResponse<?> response = GenericResponse.builder()
-                .data(gymrat)
-                .success(true)
-                .message("Gymrat of id: " + id)
-                .build();
-        return response;
-    }
-
+    // Expose an endpoint to create a new gymrat
     @PostMapping("/gymrats")
-    public GenericResponse<?> createGymRat(@RequestBody GymRat gymrat) {
+    public ResponseEntity<?> createGymRat(@Valid @RequestBody GymRatCreationDto gymrat) {
         gymRatService.createGymRat(gymrat);
-        GenericResponse<?> response = GenericResponse.builder()
-                .message("A new gymrat is created successfully")
-                .success(true)
-                .build();
-        return response;
+        GenericResponse<?> body = GenericResponse.success("A new gymrat is created successfully.");
+        return new ResponseEntity<>(body, HttpStatus.CREATED);
     }
 
+    // Expose an endpoint to get gymrat by id
+    @GetMapping("/gymrats/{id}")
+    public ResponseEntity<?> getGymRat(@PathVariable int id) {
+        UserDto gymrat = gymRatService.getGymRatById(id);
+        GenericResponse<?>  body = GenericResponse.success(gymrat, "Gymrat of id: " + id + " returned.");
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    // Expose an endpoint to get gymrat with profile data by id
+    @GetMapping("/gymrats/{id}/profile")
+    public ResponseEntity<?> getGymRatProfile(@PathVariable int id) {
+        ProfileDto gymrat = gymRatService.getGymRatProfileById(id);
+        GenericResponse<?> body = GenericResponse.success(gymrat, "Gymrat of id: " + id + " returned along with gymrat's profile.");
+        return new ResponseEntity<>(body, HttpStatus.OK);
+    }
+
+    // Expose an endpoint to update gymrat data
     @PutMapping("/gymrats/{id}")
-    public GenericResponse<?> updateGymRat(@PathVariable int id, @RequestBody GymRat updatedGymrat) {
-        gymRatService.updateGymRatById(id, updatedGymrat);
-        GenericResponse<?> response = GenericResponse.builder()
-                .message("Updated gymrat of id: " + id)
-                .success(true)
-                .build();
-        return response;
+    public ResponseEntity<?> updateGymRat(@PathVariable int id, @RequestBody GymRatUpdateDto updateDto) {
+        ProfileDto updated = gymRatService.updateGymRatById(id, updateDto);
+        GenericResponse<?> body = GenericResponse.success(updated, "Gymrat of id: " + id + " updated successfully.");
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 
+    // Expose an endpoint to delete gymrat along with profile data by id
     @DeleteMapping("/gymrats/{id}")
-    public GenericResponse<?> deleteGymRat(@PathVariable int id) {
+    public ResponseEntity<?> deleteGymRat(@PathVariable int id) {
         gymRatService.deleteGymRatById(id);
-        GenericResponse<?> response = GenericResponse.builder()
-                .success(true)
-                .message("Gymrat of id: " + id +  " is deleted successfully")
-                .build();
-        return response;
+        GenericResponse<?> body = GenericResponse.success("Gymrat of id: " + id +  " is deleted successfully.");
+        return new ResponseEntity<>(body, HttpStatus.OK);
     }
 }

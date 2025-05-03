@@ -1,13 +1,18 @@
 package com.WorkoutHub.workout_hub.service;
 
-import com.WorkoutHub.workout_hub.entity.GymRat;
+import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
+import com.WorkoutHub.workout_hub.dto.ProfileDto;
+import com.WorkoutHub.workout_hub.dto.UserDto;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 
 public interface GymRatService {
-    List<GymRat> getAllGymRats();
-    void createGymRat(GymRat gymrat);
-    GymRat getGymRatById(int id);
-    void updateGymRatById(int id, GymRat updatedGymRat);
+    List<UserDto> getAllGymRats();
+    void createGymRat(GymRatCreationDto creationDto);
+    UserDto getGymRatById(int id);
+    ProfileDto getGymRatProfileById(int id);
+    ProfileDto updateGymRatById(int id, GymRatUpdateDto updatedGymRat) throws EntityNotFoundException;
     void deleteGymRatById(int id);
 }
