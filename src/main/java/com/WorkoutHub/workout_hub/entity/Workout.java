@@ -27,6 +27,10 @@ public class Workout {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "total_volume", nullable = false)
+    private float totalVolume;
+
+
     //region Relations with other entities
 
     @OneToOne(mappedBy = "workout")

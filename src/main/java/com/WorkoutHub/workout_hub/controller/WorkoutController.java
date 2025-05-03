@@ -26,7 +26,7 @@ public class WorkoutController {
             @RequestParam(defaultValue = "4" , required = false) int pageSize
     ){
       PageResponse<WorkoutSimpleDto> body = workoutService.getAllWorkouts(userId, pageNumber, pageSize);
-      return new ResponseEntity<>(body ,HttpStatus.OK);
+      return new ResponseEntity<>(GenericResponse.success(body) ,HttpStatus.OK);
     }
 
 

@@ -1,13 +1,18 @@
 package com.WorkoutHub.workout_hub.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Normalized;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
+
 @Data
-@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PageResponse<T>{
     List<T> page;
     int pageNumber;

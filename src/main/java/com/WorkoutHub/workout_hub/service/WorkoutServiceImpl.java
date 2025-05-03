@@ -3,6 +3,7 @@ package com.WorkoutHub.workout_hub.service;
 import com.WorkoutHub.workout_hub.dto.WorkoutDto;
 import com.WorkoutHub.workout_hub.dto.WorkoutSimpleDto;
 import com.WorkoutHub.workout_hub.entity.Workout;
+import com.WorkoutHub.workout_hub.repository.ExerciseRepo;
 import com.WorkoutHub.workout_hub.repository.GymRatRepo;
 import com.WorkoutHub.workout_hub.repository.WorkoutRepo;
 import com.WorkoutHub.workout_hub.response.PageResponse;
@@ -11,17 +12,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 public class WorkoutServiceImpl implements WorkoutService {
 
     WorkoutRepo workoutRepo;
+    ExerciseRepo exerciseRepo;
     GymRatRepo gymRatRepo;
-    WorkoutServiceImpl(WorkoutRepo workoutRepo, GymRatRepo gymRatRepo) {
+
+    WorkoutServiceImpl(WorkoutRepo workoutRepo, GymRatRepo gymRatRepo, ExerciseRepo exerciseRepo) {
         this.workoutRepo = workoutRepo;
         this.gymRatRepo = gymRatRepo;
+        this.exerciseRepo = exerciseRepo;
     }
 
     @Override
@@ -29,7 +30,13 @@ public class WorkoutServiceImpl implements WorkoutService {
         validateUserExistence(userId);
 
         Page<Workout> page = workoutRepo.findByGymRatId(userId, PageRequest.of(pageNumber, pageSize));
-        Page<WorkoutSimpleDto> workouts = page.map(WorkoutSimpleDto::createDto);
+
+        Page<WorkoutSimpleDto> workouts = page.map(
+                workout -> WorkoutSimpleDto.createDto(
+                        workout,
+                        exerciseRepo.findByWorkoutId(workout.getId(), PageRequest.of(0, 3))
+                )
+        );
         return new PageResponse<>(workouts);
     }
 
@@ -56,7 +63,7 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     private void  validateUserExistence(int userId){
         if (!gymRatRepo.existsById(userId)){
-            throw new EntityNotFoundException("Entity Not Found: Gymrat with id: " + userId + " is not found.");
+            throw new EntityNotFoundException("Entity Not Found: GymRat with id: " + userId + " is not found.");
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.WorkoutHub.workout_hub.dto;
 
+import com.WorkoutHub.workout_hub.entity.Exercise;
 import com.WorkoutHub.workout_hub.entity.Workout;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,21 +16,22 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkoutSimpleDto {
-    int volume;
     private int id;
+    private String workoutTitle;
     private LocalDateTime createdAt;
     private int durationInMinutes;
+    float totalVolume;
     private List<ExerciseSimpleDto> exercises;
-    private String workoutTitle;
 
-    public static WorkoutSimpleDto createDto(Workout workout) {
+    public static WorkoutSimpleDto createDto(Workout workout, List<Exercise> exercises) {
         int duration = (int) Duration.between(workout.getWorkoutpost().getStartTime(), workout.getWorkoutpost().getFinishTime()).toMinutes();
-        System.out.println(duration);
-        //List<ExerciseDto> exList =
+        List<ExerciseSimpleDto> exList = exercises.stream().map(ExerciseSimpleDto::createDto).toList();
         return WorkoutSimpleDto.builder()
+                .totalVolume(workout.getTotalVolume())
                 .id(workout.getId())
                 .createdAt(workout.getCreatedAt())
                 .durationInMinutes(duration)
+                .exercises(exList)
                 .workoutTitle(workout.getWorkoutpost().getTitle())
                 .build();
     }
