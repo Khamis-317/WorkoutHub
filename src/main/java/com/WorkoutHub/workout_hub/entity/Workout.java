@@ -30,6 +30,9 @@ public class Workout {
     @Column(name = "total_volume", nullable = false)
     private float totalVolume;
 
+    @Column(name = "number_of_sets", nullable = false)
+    private int numberOfSets;
+
 
     //region Relations with other entities
 

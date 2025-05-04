@@ -1,8 +1,9 @@
 package com.WorkoutHub.workout_hub.service;
 
 import com.WorkoutHub.workout_hub.dto.WorkoutDto;
-import com.WorkoutHub.workout_hub.dto.WorkoutSimpleDto;
 import com.WorkoutHub.workout_hub.entity.Workout;
+import com.WorkoutHub.workout_hub.enums.Visibility;
+import com.WorkoutHub.workout_hub.exception.WorkoutVisibilityException;
 import com.WorkoutHub.workout_hub.repository.ExerciseRepo;
 import com.WorkoutHub.workout_hub.repository.GymRatRepo;
 import com.WorkoutHub.workout_hub.repository.WorkoutRepo;
@@ -26,18 +27,31 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    public PageResponse<WorkoutSimpleDto> getAllWorkouts(int userId, int pageNumber, int pageSize) {
+    public PageResponse<WorkoutDto> getAllWorkouts(int userId, int pageNumber, int pageSize) {
         validateUserExistence(userId);
 
         Page<Workout> page = workoutRepo.findByGymRatId(userId, PageRequest.of(pageNumber, pageSize));
 
-        Page<WorkoutSimpleDto> workouts = page.map(
-                workout -> WorkoutSimpleDto.createDto(
+        Page<WorkoutDto> workouts = page.map(
+                workout -> WorkoutDto.createDto(
                         workout,
-                        exerciseRepo.findByWorkoutId(workout.getId(), PageRequest.of(0, 3))
+                        exerciseRepo.findByWorkoutId(workout.getId(), PageRequest.of(0, 3)),
+                        false
                 )
         );
         return new PageResponse<>(workouts);
+    }
+
+    @Override
+    public WorkoutDto getWorkoutById(/*do we actually need that??*/int userId, int workoutId) {
+        validateUserExistence(userId);
+
+        Workout workout = workoutRepo.findById(workoutId).orElseThrow(() -> new EntityNotFoundException("Entity Not Found: Workout with id: " + workoutId + " is not found."));
+
+       hasViewPermissionForWorkout(userId, workout);
+
+       return WorkoutDto.createDto(workout, workout.getExercises(), true);
+
     }
 
     @Override
@@ -45,10 +59,7 @@ public class WorkoutServiceImpl implements WorkoutService {
         return null;
     }
 
-    @Override
-    public WorkoutDto getWorkoutById(int userId) {
-        return null;
-    }
+
 
     @Override
     public WorkoutDto updateWorkout(Workout workout) {
@@ -60,6 +71,11 @@ public class WorkoutServiceImpl implements WorkoutService {
 
     }
 
+    private void hasViewPermissionForWorkout(int userId, Workout workout) {
+        if ((workout.getWorkoutpost().getVisibility() == Visibility.Private) && workout.getGymRat().getId() != userId ){
+            throw new WorkoutVisibilityException("Workout Not Visible: User is not owner or friend of the workout owner and it is not public.");
+        }
+    }
 
     private void  validateUserExistence(int userId){
         if (!gymRatRepo.existsById(userId)){

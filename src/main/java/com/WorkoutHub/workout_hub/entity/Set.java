@@ -2,6 +2,7 @@ package com.WorkoutHub.workout_hub.entity;
 
 
 import com.WorkoutHub.workout_hub.enums.SetType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,9 +30,7 @@ public class Set {
     @Enumerated(value = EnumType.STRING)
     private SetType setType;
 
-    @Column(name = "is_completed")
-    Boolean isCompleted;
-
+    @JsonIgnore
     @ManyToOne(
             cascade = {CascadeType.DETACH,
                     CascadeType.MERGE,

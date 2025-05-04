@@ -22,6 +22,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+
+    //Workout Visibility Exception ->User Not Owner, Not Friend, Workout Not Public
+    @ExceptionHandler(WorkoutVisibilityException.class)
+    public ResponseEntity<?> handleWorkoutVisibilityException(WorkoutVisibilityException e) {
+        GenericResponse<?> body = GenericResponse.error(e.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+    }
+
+
     // Invalid request body exceptions handler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodArgumentNotValidHandler(MethodArgumentNotValidException e) {
@@ -39,4 +48,6 @@ public class GlobalExceptionHandler {
         GenericResponse<?> error = GenericResponse.error("Data Integrity Violation: due to violating entity constraints.");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+
 }
