@@ -2,6 +2,7 @@ package com.WorkoutHub.workout_hub.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Exercise {
     @Column(name =  "id")
     private Integer id;
 
-    @Column(name = "rest_time")
+    @Column(name = "rest_time") //ignored
     private int restTime;
 
     @ManyToOne(
@@ -59,11 +60,12 @@ public class Exercise {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    List<Set> sets;
+    @NotEmpty
+    private List<Set> sets;
 
 
     //region Adding, removing from/to list
-    public void addExercise(Set theSet){
+    public void addSet(Set theSet){
         if (sets == null){
             sets = new ArrayList<>();
         }

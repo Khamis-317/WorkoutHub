@@ -79,5 +79,5 @@ public class ExerciseInfo {
 //            muscleGroup = new ArrayList<>();
 //        }
 //        muscleGroup.add(muscle);
-//        // muscle.addExercise(this);
+//        // muscle.addSet(this);
 //    }

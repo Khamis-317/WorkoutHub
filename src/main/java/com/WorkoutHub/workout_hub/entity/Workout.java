@@ -2,6 +2,7 @@ package com.WorkoutHub.workout_hub.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -37,7 +38,7 @@ public class Workout {
     //region Relations with other entities
 
     @OneToOne(mappedBy = "workout")
-    WorkoutPost workoutpost;
+    private WorkoutPost workoutpost;
 
     @ManyToOne(
             cascade = {CascadeType.DETACH,
@@ -55,7 +56,8 @@ public class Workout {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    List<Exercise> exercises;
+    @NotEmpty
+    private List<Exercise> exercises;
     //endregion
 
 

@@ -20,13 +20,13 @@ public class Set {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "reps")
+    @Column(name = "reps", nullable = false)
     private int reps;
 
-    @Column(name = "weight")
+    @Column(name = "weight", nullable = false)
     private double weight;
 
-    @Column(name = "set_type")
+    @Column(name = "set_type") // cannot be null or could be normal by default
     @Enumerated(value = EnumType.STRING)
     private SetType setType;
 

@@ -7,6 +7,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Entity
@@ -29,11 +30,14 @@ public class WorkoutPost{
     @Column(name = "caption")
     String caption;
 
-    @Column(name = "start_time")
+    @Column(name = "start_time", nullable = false)
     LocalDateTime startTime;
 
     @Column(name = "finish_time")
-    LocalDateTime finishTime;
+    LocalDateTime finishTime; //(Ignored)
+
+    @Column(name = "duration", nullable = false)
+    Duration duration;
 
     @Column(name = "visibility", nullable = false)
     @Enumerated(value = EnumType.STRING)
