@@ -37,7 +37,7 @@ public class Workout {
 
     //region Relations with other entities
 
-    @OneToOne(mappedBy = "workout")
+    @OneToOne(mappedBy = "workout", cascade = CascadeType.ALL)
     private WorkoutPost workoutpost;
 
     @ManyToOne(

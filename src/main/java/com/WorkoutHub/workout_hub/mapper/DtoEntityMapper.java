@@ -24,6 +24,7 @@ public class DtoEntityMapper {
                 .exercises(exList)
                 .numberOfSets(workout.getNumberOfSets())
                 .workoutTitle(workout.getWorkoutpost().getTitle())
+                .visibility(workout.getWorkoutpost().getVisibility())
                 .build();
     }
 
@@ -36,19 +37,22 @@ public class DtoEntityMapper {
                 .duration(workoutCreationDto.getDuration())
                 .build();
 
-        return Workout.builder()
+        Workout workout = Workout.builder()
                 .exercises(exercises)
                 .numberOfSets(workoutCreationDto.getNumberOfSets())
                 .totalVolume(workoutCreationDto.getTotalVolume())
                 .workoutpost(wp)
                 .gymRat(gymRat)
                 .build();
+        wp.setWorkout(workout);
+        exercises.forEach(exercise -> exercise.setWorkout(workout));
+        return workout;
     }
 
     public static ExerciseDto createExerciseDto(Exercise exercise) {
         return ExerciseDto.builder()
                 .exerciseName(exercise.getExerciseInfo().getName())
-                .setsNum(exercise.getSets().size())
+                .setsNum(exercise.getSets().toArray().length)
                 .exerciseInfoId(exercise.getExerciseInfo().getId())
                 .build();
     }
@@ -63,9 +67,11 @@ public class DtoEntityMapper {
     }
 
     public static Exercise createExerciseEntity(ExerciseDto exerciseDto, ExerciseInfo exerciseInfo){
-        return Exercise.builder()
+        Exercise ex = Exercise.builder()
                 .exerciseInfo(exerciseInfo)
                 .sets(exerciseDto.getSets())
                 .build();
+        exerciseDto.getSets().forEach(set -> set.setExercise(ex));
+        return  ex;
     }
 }

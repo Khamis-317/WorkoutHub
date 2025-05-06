@@ -2,6 +2,7 @@ package com.WorkoutHub.workout_hub.dto;
 
 import com.WorkoutHub.workout_hub.entity.Exercise;
 import com.WorkoutHub.workout_hub.entity.Workout;
+import com.WorkoutHub.workout_hub.enums.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,9 +22,10 @@ public class WorkoutDto {
     private int id;
     private String workoutTitle;
     private LocalDateTime createdAt;
-    Duration duration;
+    int duration;
     private float totalVolume;
     private int numberOfSets;
+    private Visibility visibility;
     private List<ExerciseDto> exercises;
 
 

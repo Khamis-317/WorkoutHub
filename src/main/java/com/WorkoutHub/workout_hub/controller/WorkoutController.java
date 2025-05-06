@@ -2,7 +2,6 @@ package com.WorkoutHub.workout_hub.controller;
 
 import com.WorkoutHub.workout_hub.dto.WorkoutCreationDto;
 import com.WorkoutHub.workout_hub.dto.WorkoutDto;
-import com.WorkoutHub.workout_hub.entity.Workout;
 import com.WorkoutHub.workout_hub.response.GenericResponse;
 import com.WorkoutHub.workout_hub.response.PageResponse;
 import com.WorkoutHub.workout_hub.service.WorkoutService;

@@ -22,7 +22,7 @@ public class ExerciseDto {
     private int exerciseInfoId;
     private String exerciseName;
     List<Set> sets;
-    private int setsNum;
+    private Integer setsNum;
     private ExerciseInfo exerciseInfo;
 
 

@@ -36,7 +36,7 @@ public class WorkoutCreationDto {
     private LocalDateTime startTime;
 
     @NotNull
-    private Duration duration;
+    private int duration;
 
     @NotNull
     private Visibility visibility;

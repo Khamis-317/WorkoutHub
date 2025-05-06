@@ -28,10 +28,11 @@ public class WorkoutServiceImpl implements WorkoutService {
     GymRatRepo gymRatRepo;
     ExerciseInfoRepo exerciseInfoRepo;
 
-    WorkoutServiceImpl(WorkoutRepo workoutRepo, GymRatRepo gymRatRepo, ExerciseRepo exerciseRepo) {
+    WorkoutServiceImpl(WorkoutRepo workoutRepo, GymRatRepo gymRatRepo, ExerciseRepo exerciseRepo, ExerciseInfoRepo exerciseInfoRepo) {
         this.workoutRepo = workoutRepo;
         this.gymRatRepo = gymRatRepo;
         this.exerciseRepo = exerciseRepo;
+        this.exerciseInfoRepo = exerciseInfoRepo;
     }
 
     @Override
