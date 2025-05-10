@@ -13,8 +13,8 @@ import java.util.List;
 @Getter
 @Builder
 @Entity
-@Table(name = "exercise_info")
-public class ExerciseInfo {
+@Table(name = "exercise_templates")
+public class ExerciseTemplate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -66,7 +66,7 @@ public class ExerciseInfo {
         if (exercises == null){
             exercises = new ArrayList<>();
         }
-        theExercise.setExerciseInfo(this);
+        theExercise.setExerciseTemplate(this);
         exercises.add(theExercise);
     }
 }

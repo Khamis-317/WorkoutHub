@@ -29,8 +29,8 @@ public class ExerciseMuscle {
                     CascadeType.DETACH,
             }
     )
-    @JoinColumn(name = "exercise_info_id")
-    private ExerciseInfo exercise;
+    @JoinColumn(name = "exercise_template_id")
+    private ExerciseTemplate exercise;
 
     @ManyToOne(fetch = FetchType.EAGER,
             cascade = {

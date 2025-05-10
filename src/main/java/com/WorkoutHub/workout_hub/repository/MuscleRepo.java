@@ -1,8 +1,6 @@
 package com.WorkoutHub.workout_hub.repository;
 
-import com.WorkoutHub.workout_hub.entity.ExerciseInfo;
 import com.WorkoutHub.workout_hub.entity.Muscle;
-import com.WorkoutHub.workout_hub.enums.MuscleImportance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

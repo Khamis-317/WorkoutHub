@@ -1,7 +1,7 @@
 package com.WorkoutHub.workout_hub;
 
 
-import com.WorkoutHub.workout_hub.entity.ExerciseInfo;
+import com.WorkoutHub.workout_hub.entity.ExerciseTemplate;
 import com.WorkoutHub.workout_hub.entity.GymRat;
 import com.WorkoutHub.workout_hub.entity.GymRatProfile;
 import com.WorkoutHub.workout_hub.entity.Muscle;
@@ -9,7 +9,6 @@ import com.WorkoutHub.workout_hub.enums.MuscleImportance;
 import com.WorkoutHub.workout_hub.repository.ExerciseInfoRepo;
 import com.WorkoutHub.workout_hub.repository.GymRatRepo;
 import com.WorkoutHub.workout_hub.repository.MuscleRepo;
-import jakarta.transaction.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -195,7 +194,7 @@ public class WorkoutHubApplication {
 
 	private void createExercises(ExerciseInfoRepo repo) {
 		// Bench Press - Muscles linkage
-		ExerciseInfo ex1 = ExerciseInfo.builder().name("Barbell Bench Press").instructions("Push the bar").build();
+		ExerciseTemplate ex1 = ExerciseTemplate.builder().name("Barbell Bench Press").instructions("Push the bar").build();
 
 		Muscle m1 = Muscle.builder().name("Chest").build();
 		Muscle m2 = Muscle.builder().name("Triceps").build();
@@ -204,7 +203,7 @@ public class WorkoutHubApplication {
 		ex1.addMuscle(m2, MuscleImportance.SECONDARY);
 
 		// Shoulder Press - Muscles linkage
-		ExerciseInfo ex2 = ExerciseInfo.builder().name("Shoulder Press").instructions("Push the bar up").build();
+		ExerciseTemplate ex2 = ExerciseTemplate.builder().name("Shoulder Press").instructions("Push the bar up").build();
 
 		Muscle m3 = Muscle.builder().name("Shoulder").build();
 
@@ -216,10 +215,10 @@ public class WorkoutHubApplication {
 
 	private void addExerciseWithExistingMuscles(ExerciseInfoRepo exRepo, MuscleRepo mRepo) {
 		String exerciseName = "Lateral Raises";
-		ExerciseInfo ex = exRepo.findExerciseByName(exerciseName)
+		ExerciseTemplate ex = exRepo.findExerciseByName(exerciseName)
 				.orElse(null);
 		if (ex == null) {
-			ex = ExerciseInfo.builder().name(exerciseName).instructions("Raise your shoulders to the side").build();
+			ex = ExerciseTemplate.builder().name(exerciseName).instructions("Raise your shoulders to the side").build();
 
 			String muscleName = "Shoulder";
 			MuscleImportance imp = MuscleImportance.PRIMARY;

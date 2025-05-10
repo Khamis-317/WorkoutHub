@@ -29,8 +29,8 @@ public class Exercise {
                     CascadeType.PERSIST,
                     CascadeType.REFRESH
             })
-    @JoinColumn(name = "exercise_info_id", nullable = false)
-    private ExerciseInfo exerciseInfo;
+    @JoinColumn(name = "exercise_template_id", nullable = false)
+    private ExerciseTemplate exerciseTemplate;
 
 
     @ManyToOne(
