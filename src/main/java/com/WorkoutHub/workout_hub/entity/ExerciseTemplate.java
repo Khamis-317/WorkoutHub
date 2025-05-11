@@ -37,9 +37,9 @@ public class ExerciseTemplate {
     private List<ExerciseMuscle> muscleGroup;
 
 
-    //deleting ex_info would delete all instances
+    //deleting ex_template would delete all instances
     @OneToMany(
-            mappedBy = "exerciseInfo" ,
+            mappedBy = "exerciseTemplate" ,
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             orphanRemoval = true

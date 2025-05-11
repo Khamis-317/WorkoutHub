@@ -25,18 +25,18 @@ public class GymRatServiceImpl implements GymRatService {
     }
 
     @Override
-    public List<UserDto> getAllGymRats() {
-        return gymRatRepository.findAll().stream()
-                .map(UserDto::new)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void createGymRat(GymRatCreationDto creationDto) {
         GymRat gymrat = new GymRat(creationDto);
         GymRatProfile gymRatProfile = new GymRatProfile(creationDto);
         gymrat.setProfile(gymRatProfile);
         gymRatRepository.save(gymrat);
+    }
+
+    @Override
+    public List<UserDto> getAllGymRats() {
+        return gymRatRepository.findAll().stream()
+                .map(UserDto::new)
+                .collect(Collectors.toList());
     }
 
     @Override

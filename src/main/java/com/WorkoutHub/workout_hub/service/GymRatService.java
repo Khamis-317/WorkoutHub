@@ -9,8 +9,8 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 
 public interface GymRatService {
-    List<UserDto> getAllGymRats();
     void createGymRat(GymRatCreationDto creationDto);
+    List<UserDto> getAllGymRats();
     UserDto getGymRatById(int id);
     ProfileDto getGymRatProfileById(int id);
     ProfileDto updateGymRatById(int id, GymRatUpdateDto updatedGymRat) throws EntityNotFoundException;
