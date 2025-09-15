@@ -4,3 +4,4 @@
 #ignoring compiled files
 target
 
+.env

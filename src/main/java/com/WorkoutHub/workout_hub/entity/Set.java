@@ -20,6 +20,10 @@ public class Set {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "set_number", nullable = false)
+    private int setNumber;
+
+
     @Column(name = "reps", nullable = false)
     private int reps;
 
