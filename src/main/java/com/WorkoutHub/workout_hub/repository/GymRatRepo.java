@@ -15,4 +15,7 @@ public interface GymRatRepo extends JpaRepository<GymRat, Integer> {
 
     @Query("SELECT gr FROM GymRat gr JOIN FETCH gr.profile WHERE gr.id = :id")
     Optional<GymRat> findGymRatWithProfileById(int id);
+
+    @Query("SELECT gr FROM GymRat gr JOIN FETCH gr WHERE gr.username= :username")
+    Optional<GymRat> findGymRatByUsername(String username);
 }
