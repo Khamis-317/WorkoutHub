@@ -1,4 +1,4 @@
-package com.WorkoutHub.workout_hub.security;
+package com.WorkoutHub.workout_hub.security.config;
 
 import com.WorkoutHub.workout_hub.security.jwt.JwtAuthenticationFilter;
 import lombok.AllArgsConstructor;

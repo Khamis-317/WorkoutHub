@@ -1,6 +1,6 @@
 package com.WorkoutHub.workout_hub.controller;
 
-import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.auth.RegisterRequest;
 import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
 import com.WorkoutHub.workout_hub.dto.ProfileDto;
 import com.WorkoutHub.workout_hub.dto.UserDto;
@@ -34,7 +34,7 @@ public class GymRatController {
 
     // Expose an endpoint to create a new gymrat
     @PostMapping("/gymrats")
-    public ResponseEntity<?> createGymRat(@Valid @RequestBody GymRatCreationDto gymrat) {
+    public ResponseEntity<?> createGymRat(@Valid @RequestBody RegisterRequest gymrat) {
         gymRatService.createGymRat(gymrat);
         GenericResponse<?> body = GenericResponse.success("A new gymrat is created successfully.");
         return new ResponseEntity<>(body, HttpStatus.CREATED);

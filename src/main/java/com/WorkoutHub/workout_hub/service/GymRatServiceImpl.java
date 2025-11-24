@@ -1,6 +1,6 @@
 package com.WorkoutHub.workout_hub.service;
 
-import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.auth.RegisterRequest;
 import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
 import com.WorkoutHub.workout_hub.dto.ProfileDto;
 import com.WorkoutHub.workout_hub.dto.UserDto;
@@ -32,7 +32,7 @@ public class GymRatServiceImpl implements GymRatService {
     }
 
     @Override
-    public void createGymRat(GymRatCreationDto creationDto) {
+    public void createGymRat(RegisterRequest creationDto) {
         GymRat gymrat = new GymRat(creationDto);
         GymRatProfile gymRatProfile = new GymRatProfile(creationDto);
         gymrat.setProfile(gymRatProfile);

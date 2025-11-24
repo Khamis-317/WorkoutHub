@@ -1,4 +1,4 @@
-package com.WorkoutHub.workout_hub.security;
+package com.WorkoutHub.workout_hub.security.userdetails;
 
 import com.WorkoutHub.workout_hub.entity.GymRat;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class GymRatDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Collections.singletonList(new SimpleGrantedAuthority("USER"));
     }
 
 

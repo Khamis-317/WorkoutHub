@@ -6,6 +6,7 @@ import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
+    @Getter
     private final long jwtExpiration;
     private final SecretKey signInKey;
     private final JwtParser jwtParser;
@@ -41,7 +43,7 @@ public class JwtService {
      * @return Signed JWT String
      * */
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        return generateToken(userDetails, new HashMap<>());
     }
 
     /**
@@ -50,7 +52,7 @@ public class JwtService {
      * @param userDetails The spring Security user principal
      * @return Signed JWT String
      */
-    public String generateToken(Map<java.lang.String,Object> extraClaims, UserDetails userDetails) {
+    public String generateToken(UserDetails userDetails, Map<java.lang.String,Object> extraClaims) {
         return Jwts.builder()
                 .subject(userDetails.getUsername())
                 .claims(extraClaims)
@@ -64,8 +66,9 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public Integer extractGymRatId(String token) {
-        return extractClaim(token, claims -> claims.get("id", Integer.class));
+    public String extractGymRatId(String token) {
+        //user id may be refactored to UUID so > String :)
+        return extractClaim(token, claims -> String.valueOf(claims.get("id")));
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {

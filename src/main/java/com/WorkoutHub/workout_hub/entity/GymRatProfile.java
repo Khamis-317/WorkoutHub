@@ -1,7 +1,7 @@
 package com.WorkoutHub.workout_hub.entity;
 
 
-import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.auth.RegisterRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,7 +37,7 @@ public class GymRatProfile {
     @Column(name = "bio")
     private String bio;
 
-    public GymRatProfile(GymRatCreationDto dto) {
+    public GymRatProfile(RegisterRequest dto) {
         this.firstName = dto.getFirstName();
         this.lastName = dto.getLastName();
         this.country = dto.getCountry();
