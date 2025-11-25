@@ -1,12 +1,11 @@
 package com.WorkoutHub.workout_hub.controller;
 
-import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+
 import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
 import com.WorkoutHub.workout_hub.dto.ProfileDto;
 import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.response.GenericResponse;
 import com.WorkoutHub.workout_hub.service.GymRatService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +29,6 @@ public class GymRatController {
         List<UserDto> gymrats = gymRatService.getAllGymRats();
         GenericResponse<?> body = GenericResponse.success(gymrats, "List of all the current gymrats.");
         return new ResponseEntity<>(body ,HttpStatus.OK);
-    }
-
-    // Expose an endpoint to create a new gymrat
-    @PostMapping("/gymrats")
-    public ResponseEntity<?> createGymRat(@Valid @RequestBody GymRatCreationDto gymrat) {
-        gymRatService.createGymRat(gymrat);
-        GenericResponse<?> body = GenericResponse.success("A new gymrat is created successfully.");
-        return new ResponseEntity<>(body, HttpStatus.CREATED);
     }
 
     // Expose an endpoint to get gymrat by id

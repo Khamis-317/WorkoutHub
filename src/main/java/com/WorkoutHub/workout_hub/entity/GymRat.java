@@ -1,6 +1,6 @@
 package com.WorkoutHub.workout_hub.entity;
 
-import com.WorkoutHub.workout_hub.dto.GymRatCreationDto;
+import com.WorkoutHub.workout_hub.dto.auth.RegisterRequest;
 import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
 import jakarta.persistence.*;
 import lombok.*;
@@ -51,7 +51,7 @@ public class GymRat {
     List<Routine> routines;
     //endregion
 
-    public GymRat(GymRatCreationDto dto) {
+    public GymRat(RegisterRequest dto) {
         this.username = dto.getUsername();
         this.email = dto.getEmail();
         this.password = dto.getPassword();  // TODO: saving plain password (encryption needed)

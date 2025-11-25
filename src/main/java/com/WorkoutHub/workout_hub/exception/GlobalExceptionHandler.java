@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -22,6 +23,15 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
+
+    //Workout Visibility Exception ->User Not Owner, Not Friend, Workout Not Public
+    @ExceptionHandler(WorkoutVisibilityException.class)
+    public ResponseEntity<?> handleWorkoutVisibilityException(WorkoutVisibilityException e) {
+        GenericResponse<?> body = GenericResponse.error(e.getMessage());
+        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+    }
+
+
     // Invalid request body exceptions handler
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> methodArgumentNotValidHandler(MethodArgumentNotValidException e) {
@@ -33,10 +43,23 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Void> handleBadCredentials() {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<?> handleDuplicateResourceException(DuplicateResourceException e) {
+        GenericResponse<?> error = GenericResponse.error(e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
     // Persistence layer constraint violation exceptions handler
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> handleDBException(DataIntegrityViolationException e) {
         GenericResponse<?> error = GenericResponse.error("Data Integrity Violation: due to violating entity constraints.");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+
 }

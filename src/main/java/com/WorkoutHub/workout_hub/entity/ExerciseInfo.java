@@ -1,6 +1,8 @@
 package com.WorkoutHub.workout_hub.entity;
 
 import com.WorkoutHub.workout_hub.enums.MuscleImportance;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +40,7 @@ public class ExerciseInfo {
 
 
     //deleting ex_info would delete all instances
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(
             mappedBy = "exerciseInfo" ,
             fetch = FetchType.LAZY,
@@ -76,5 +79,5 @@ public class ExerciseInfo {
 //            muscleGroup = new ArrayList<>();
 //        }
 //        muscleGroup.add(muscle);
-//        // muscle.addExercise(this);
+//        // muscle.addSet(this);
 //    }

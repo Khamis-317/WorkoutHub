@@ -7,6 +7,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +22,7 @@ public class WorkoutPost{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer Id;
+    private Integer id;
 
     @Column(name = "title", nullable = false)
     String title;
@@ -29,13 +30,17 @@ public class WorkoutPost{
     @Column(name = "caption")
     String caption;
 
-    @Column(name = "start_time")
+    @Column(name = "start_time", nullable = false)
     LocalDateTime startTime;
 
     @Column(name = "finish_time")
-    LocalDateTime finishTime;
+    LocalDateTime finishTime; //(Ignored)
+
+    @Column(name = "duration_in_minutes", nullable = false)
+    int duration;
 
     @Column(name = "visibility", nullable = false)
+    @Enumerated(value = EnumType.STRING)
     Visibility visibility;
 
     @OneToOne(fetch = FetchType.LAZY , cascade = CascadeType.ALL)

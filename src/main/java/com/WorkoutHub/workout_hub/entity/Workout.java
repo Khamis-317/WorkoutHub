@@ -2,6 +2,7 @@ package com.WorkoutHub.workout_hub.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -27,10 +28,17 @@ public class Workout {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "total_volume", nullable = false)
+    private float totalVolume;
+
+    @Column(name = "number_of_sets", nullable = false)
+    private int numberOfSets;
+
+
     //region Relations with other entities
 
-    @OneToOne(mappedBy = "workout")
-    WorkoutPost workoutpost;
+    @OneToOne(mappedBy = "workout", cascade = CascadeType.ALL)
+    private WorkoutPost workoutpost;
 
     @ManyToOne(
             cascade = {CascadeType.DETACH,
@@ -48,7 +56,8 @@ public class Workout {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    List<Exercise> exercises;
+    @NotEmpty
+    private List<Exercise> exercises;
     //endregion
 
 
