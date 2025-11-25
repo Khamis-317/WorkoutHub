@@ -30,7 +30,7 @@ public class AuthService {
 
     /**
      * Registers a new user and creates their associated profile transactionally.
-     * * @param request The registration data (user credentials and basic profile info)
+     * @param request The registration data (user credentials and basic profile info)
      * @return AuthResponse containing the JWT and User ID
      * @throws DuplicateResourceException if email/username already exists
      */
@@ -62,7 +62,7 @@ public class AuthService {
 
     /**
      * Authenticates a user using either their Email or Username.
-     * * @param request Contains loginIdentifier (email OR username) and password
+     * @param request Contains loginIdentifier (email OR username) and password
      * @return AuthResponse containing the JWT
      * @throws BadCredentialsException if authentication fails
      */

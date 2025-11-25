@@ -1,12 +1,11 @@
 package com.WorkoutHub.workout_hub.controller;
 
-import com.WorkoutHub.workout_hub.dto.auth.RegisterRequest;
+
 import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
 import com.WorkoutHub.workout_hub.dto.ProfileDto;
 import com.WorkoutHub.workout_hub.dto.UserDto;
 import com.WorkoutHub.workout_hub.response.GenericResponse;
 import com.WorkoutHub.workout_hub.service.GymRatService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

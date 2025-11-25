@@ -49,7 +49,7 @@ public class JwtService {
     /**
      * Generates a token with custom claims (ID, Role, etc.).
      * @param extraClaims Map of custom data to embed in the token payload
-     * @param userDetails The spring Security user principal
+     * @param userDetails The Spring Security user principal
      * @return Signed JWT String
      */
     public String generateToken(UserDetails userDetails, Map<java.lang.String,Object> extraClaims) {

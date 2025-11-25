@@ -13,7 +13,7 @@ public class LoginRequest {
 
     @NotNull(message = "Username is required")
     @NotBlank(message = "Username cannot be empty")
-    @Size(min = 3, max = 420, message = "Invalid Username or Email must be between 3 and 20 characters")
+    @Size(min = 3, max = 420, message = "Invalid Username or Email must be between 3 and 420 characters")
     private String loginIdentifier;
 
 
