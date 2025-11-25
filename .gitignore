@@ -1,7 +1,28 @@
-#ignoring Intellij IDEA files
-.idea
+# --- IDE Specific ---
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
 
-#ignoring compiled files
-target
+# --- Build Artifacts ---
+target/
+build/
+out/
+*.class
+*.jar
+*.war
 
+# --- OS System Junk ---
+.DS_Store
+Thumbs.db
+
+# --- Secrets ---
 .env
+*.key
+secrets.properties
+
+# --- Logs & Crash Reports ---
+*.log
+hs_err_pid*
