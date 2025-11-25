@@ -36,8 +36,11 @@ public class AuthService {
      */
     @Transactional
     public AuthResponse register(RegisterRequest request) {
-        if (gymRatRepo.existsByEmail(request.getEmail()) ||  gymRatRepo.existsByUsername(request.getUsername())) {
-            throw new DuplicateResourceException("login_identifier is already in use");
+        if (gymRatRepo.existsByEmail(request.getEmail())) {
+            throw new DuplicateResourceException("Email already exists");
+        }
+        if(gymRatRepo.existsByUsername(request.getUsername())) {
+            throw new DuplicateResourceException("Username is already in use");
         }
         var profile = new GymRatProfile();
         profile.setFirstName(request.getFirstName());
