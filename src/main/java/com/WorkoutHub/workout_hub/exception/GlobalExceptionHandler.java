@@ -42,6 +42,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<?> handleDuplicateResourceException(DuplicateResourceException e) {
+        GenericResponse<?> error = GenericResponse.error(e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+    }
+
     // Persistence layer constraint violation exceptions handler
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> handleDBException(DataIntegrityViolationException e) {

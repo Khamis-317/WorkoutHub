@@ -14,7 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.dao.DataIntegrityViolationException;
+import com.WorkoutHub.workout_hub.exception.DuplicateResourceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,10 +32,13 @@ public class AuthService {
      * Registers a new user and creates their associated profile transactionally.
      * * @param request The registration data (user credentials and basic profile info)
      * @return AuthResponse containing the JWT and User ID
-     * @throws DataIntegrityViolationException if email/username already exists
+     * @throws DuplicateResourceException if email/username already exists
      */
     @Transactional
     public AuthResponse register(RegisterRequest request) {
+        if (gymRatRepo.existsByEmail(request.getEmail()) ||  gymRatRepo.existsByUsername(request.getUsername())) {
+            throw new DuplicateResourceException("login_identifier is already in use");
+        }
         var profile = new GymRatProfile();
         profile.setFirstName(request.getFirstName());
         profile.setLastName(request.getLastName());

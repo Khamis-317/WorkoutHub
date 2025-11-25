@@ -1,6 +1,6 @@
 package com.WorkoutHub.workout_hub.dto.auth;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
