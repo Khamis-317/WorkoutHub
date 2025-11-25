@@ -32,14 +32,6 @@ public class GymRatController {
         return new ResponseEntity<>(body ,HttpStatus.OK);
     }
 
-    // Expose an endpoint to create a new gymrat
-    @PostMapping("/gymrats")
-    public ResponseEntity<?> createGymRat(@Valid @RequestBody RegisterRequest gymrat) {
-        gymRatService.createGymRat(gymrat);
-        GenericResponse<?> body = GenericResponse.success("A new gymrat is created successfully.");
-        return new ResponseEntity<>(body, HttpStatus.CREATED);
-    }
-
     // Expose an endpoint to get gymrat by id
     @GetMapping("/gymrats/{id}")
     public ResponseEntity<?> getGymRat(@PathVariable int id) {
