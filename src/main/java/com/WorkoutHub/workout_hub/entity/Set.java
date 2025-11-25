@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "sets")
 @Getter
@@ -13,12 +15,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Set {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class Set extends BaseEntity {
 
     @Column(name = "set_number", nullable = false)
     private int setNumber;
@@ -28,7 +25,7 @@ public class Set {
     private int reps;
 
     @Column(name = "weight", nullable = false)
-    private double weight;
+    private Double weight;
 
     @Column(name = "set_type") // cannot be null or could be normal by default
     @Enumerated(value = EnumType.STRING)

@@ -4,11 +4,10 @@ package com.WorkoutHub.workout_hub.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -18,18 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Workout {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
-
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+public class Workout extends BaseEntity {
 
     @Column(name = "total_volume", nullable = false)
-    private float totalVolume;
+    private double totalVolume;
 
     @Column(name = "number_of_sets", nullable = false)
     private int numberOfSets;

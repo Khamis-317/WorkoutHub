@@ -11,11 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RoutineSetTemplate {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class RoutineSetTemplate extends BaseEntity {
 
     @Column(name = "set_order", nullable = false)
     private int setOrder;

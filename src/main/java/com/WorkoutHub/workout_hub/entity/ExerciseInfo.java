@@ -41,12 +41,7 @@ public class ExerciseInfo {
 
     //deleting ex_info would delete all instances
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @OneToMany(
-            mappedBy = "exerciseInfo" ,
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "exerciseInfo", fetch = FetchType.LAZY)
     List<Exercise> exercises;
 
 

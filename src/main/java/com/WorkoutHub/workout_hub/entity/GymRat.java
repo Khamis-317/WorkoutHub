@@ -4,11 +4,10 @@ import com.WorkoutHub.workout_hub.dto.auth.RegisterRequest;
 import com.WorkoutHub.workout_hub.dto.GymRatUpdateDto;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,11 +16,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "gym_rats")
-public class GymRat {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class GymRat extends BaseEntity {
 
     @Column(name = "username", nullable = false, unique = true)
     private String username;
@@ -31,10 +26,6 @@ public class GymRat {
 
     @Column(name = "password", nullable = false)
     private String password;
-
-    @CreationTimestamp
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
     //region Relations with other entities
     // lazy fetch is used to get profile data only on demand
