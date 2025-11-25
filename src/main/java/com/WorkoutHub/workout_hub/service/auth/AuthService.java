@@ -14,7 +14,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.BadCredentialsException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +28,12 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
 
+    /**
+     * Registers a new user and creates their associated profile transactionally.
+     * * @param request The registration data (user credentials and basic profile info)
+     * @return AuthResponse containing the JWT and User ID
+     * @throws DataIntegrityViolationException if email/username already exists
+     */
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         var profile = new GymRatProfile();
@@ -47,6 +54,12 @@ public class AuthService {
     }
 
 
+    /**
+     * Authenticates a user using either their Email or Username.
+     * * @param request Contains loginIdentifier (email OR username) and password
+     * @return AuthResponse containing the JWT
+     * @throws BadCredentialsException if authentication fails
+     */
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
