@@ -8,16 +8,18 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ProfileDto {
     // gymrat user data
-    private Integer id;
+    private UUID id;
     private String username;
     private String email;
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     // gymrat profile data
     private String firstName;

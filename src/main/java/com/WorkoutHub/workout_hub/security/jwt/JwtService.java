@@ -67,7 +67,6 @@ public class JwtService {
     }
 
     public String extractGymRatId(String token) {
-        //user id may be refactored to UUID so > String :)
         return extractClaim(token, claims -> String.valueOf(claims.get("id")));
     }
 

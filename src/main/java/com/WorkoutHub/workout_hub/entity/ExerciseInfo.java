@@ -1,7 +1,6 @@
 package com.WorkoutHub.workout_hub.entity;
 
 import com.WorkoutHub.workout_hub.enums.MuscleImportance;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
@@ -68,11 +67,3 @@ public class ExerciseInfo {
         exercises.add(theExercise);
     }
 }
-
-//    public void addMuscle(Muscle muscle) {
-//        if (muscleGroup == null) {
-//            muscleGroup = new ArrayList<>();
-//        }
-//        muscleGroup.add(muscle);
-//        // muscle.addSet(this);
-//    }

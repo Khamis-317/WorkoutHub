@@ -93,7 +93,7 @@ public class AuthService {
 
         return AuthResponse.builder()
                 .accessToken(jwtToken)
-                .userId(user.getId())
+                .userId(user.getId().toString())
                 .userName(user.getUsername()) //TODO: Add refresh token
                 .expiresIn(jwtService.getJwtExpiration() / 1000)
                 .build();

@@ -5,8 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface ExerciseRepo extends JpaRepository<Exercise, Integer> {
+public interface ExerciseRepo extends JpaRepository<Exercise, UUID> {
 
-    List<Exercise> findByWorkoutId(int workoutId, Pageable pageable);
+    List<Exercise> findByWorkoutId(UUID workoutId, Pageable pageable);
 }
