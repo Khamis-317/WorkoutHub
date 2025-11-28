@@ -29,7 +29,7 @@ public class ExerciseMuscle {
                     CascadeType.DETACH,
             }
     )
-    @JoinColumn(name = "exercise_info_id")
+    @JoinColumn(name = "exercise_info_id", nullable = false)
     private ExerciseInfo exercise;
 
     @ManyToOne(fetch = FetchType.EAGER,
@@ -40,7 +40,7 @@ public class ExerciseMuscle {
                 CascadeType.DETACH,
             }
     )
-    @JoinColumn(name = "muscle_id")
+    @JoinColumn(name = "muscle_id", nullable = false)
     private Muscle muscle;
 
     @Enumerated(value = EnumType.STRING)

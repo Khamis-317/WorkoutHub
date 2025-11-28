@@ -15,17 +15,12 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "gym_rat_profiles")
-public class GymRatProfile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class GymRatProfile extends BaseEntity {
 
     @Column(name = "first_name")
     private String firstName;
 
     @Column(name = "last_name")
-
     private String lastName;
 
     @Column(name = "country")

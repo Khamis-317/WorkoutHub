@@ -7,6 +7,8 @@ import lombok.Setter;
 
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,10 +16,10 @@ import java.time.LocalDateTime;
 
 public class UserDto {
     // gymrat user data
-    private Integer id;
+    private UUID id;
     private String username;
     private String email;
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     public UserDto(GymRat gymrat) {
         this.id = gymrat.getId();
