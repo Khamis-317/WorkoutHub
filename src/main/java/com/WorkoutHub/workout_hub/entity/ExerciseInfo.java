@@ -25,7 +25,7 @@ public class ExerciseInfo {
     private String name;
 
     @Column(name = "instructions")
-    String instructions;
+    private String instructions;
 
     // saving an (exercise) with a muscle group will also save the (muscles) in their table
     // deleting an (exercise) doesn't delete the (muscles) in the muscle group
