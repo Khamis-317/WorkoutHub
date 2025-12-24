@@ -5,12 +5,16 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
+
+    @NotNull(message = "ID is required for offline synchronization")
+    private UUID id;
 
     @NotNull(message = "Username is required")
     @NotBlank(message = "Username cannot be empty")

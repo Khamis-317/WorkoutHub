@@ -18,6 +18,7 @@ import com.WorkoutHub.workout_hub.exception.DuplicateResourceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -50,6 +51,7 @@ public class AuthService {
         profile.setBio(request.getBio());
 
         var user = new GymRat();
+        user.setId(request.getId());
         user.setProfile(profile);
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
