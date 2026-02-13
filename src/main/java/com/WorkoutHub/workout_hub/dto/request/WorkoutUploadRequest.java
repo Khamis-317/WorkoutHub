@@ -13,12 +13,21 @@ import lombok.NoArgsConstructor;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkoutUploadRequest {
+    @NotNull(message = "Workout ID is required")
+    @JsonProperty("workout_id")
+    private UUID workoutId;
+
+    @NotNull(message = "Workout post ID is required")
+    @JsonProperty("workout_post_id")
+    private UUID workoutPostId;
+
 
     @NotNull(message = "Title is required")
     @Size(min = 1, max = 255, message = "Title must be between 1 and 255 characters")

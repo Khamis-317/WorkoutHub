@@ -11,15 +11,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class WorkoutExerciseDto {
-    @NotNull(message = "Exercise Id is required")
-    @JsonProperty("exercise_id")
-    private Long exerciseId;
+
+    @NotNull(message = "Exercise UUID is required")
+    @JsonProperty("exercise_uuid")
+    private UUID exerciseUuid;
+
+    @NotNull(message = "Exercise Info Id is required")
+    @JsonProperty("exercise_info_id")
+    private Long exerciseInfoId;
 
     @NotNull(message = "Order in workout is required")
     @Min(value = 1, message = "order mest be at least 1")

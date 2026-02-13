@@ -10,11 +10,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class SetDto {
+
+    @NotNull(message = "Set UUID is required")
+    @JsonProperty("set_uuid")
+    private UUID setUuid;
 
     @NotNull (message = "Set number is required")
     @Min(value = 1, message =  "Set number must be at least 1")
