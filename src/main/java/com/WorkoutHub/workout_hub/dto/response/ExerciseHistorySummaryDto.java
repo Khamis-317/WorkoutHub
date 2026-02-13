@@ -11,8 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExerciseHistorySummaryDto {
-    @JsonProperty("exercise_id")
-    private Long exerciseId;
+    @JsonProperty("exercise_info_id")
+    private Long exerciseInfoId;
 
 
     @JsonProperty("exercise_name")

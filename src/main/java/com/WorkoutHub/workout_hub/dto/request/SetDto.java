@@ -17,7 +17,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SetDto {
-
     @NotNull(message = "Set UUID is required")
     @JsonProperty("set_uuid")
     private UUID setUuid;
@@ -31,7 +30,7 @@ public class SetDto {
     @JsonProperty("set_type")
     private SetType setType;
 
-    @NotNull(message = "Reps is rquired")
+    @NotNull(message = "Reps is required")
     @Min(value = 0, message = "Reps cannot be negative")
     private Integer reps;
 

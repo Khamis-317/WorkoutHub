@@ -15,7 +15,6 @@ import java.util.List;
 @AllArgsConstructor
 
 public class ExerciseHistoryResponse {
-
     @JsonProperty("last_sync")
     private OffsetDateTime lastSync;
 
