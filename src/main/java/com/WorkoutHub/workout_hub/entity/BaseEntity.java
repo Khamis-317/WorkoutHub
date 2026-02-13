@@ -2,8 +2,8 @@ package com.WorkoutHub.workout_hub.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.domain.Persistable;
@@ -15,13 +15,18 @@ import java.util.UUID;
 @MappedSuperclass
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 public abstract class BaseEntity implements Persistable<UUID> {
     @Id
     @Column(name = "id", updatable = false, nullable = false)
+    @Builder.Default
     protected UUID id = UUID.randomUUID();
 
     @Transient
     @JsonIgnore
+    @Builder.Default
     protected boolean isNew = true;
 
     @CreationTimestamp

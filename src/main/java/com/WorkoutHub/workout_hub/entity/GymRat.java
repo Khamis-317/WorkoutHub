@@ -2,6 +2,7 @@ package com.WorkoutHub.workout_hub.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "gym_rats")
 public class GymRat extends BaseEntity {

@@ -4,6 +4,7 @@ package com.WorkoutHub.workout_hub.entity;
 import com.WorkoutHub.workout_hub.enums.Visibility;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 
@@ -13,7 +14,7 @@ import java.time.OffsetDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class WorkoutPost extends BaseEntity {
 
     @Column(name = "title", nullable = false)

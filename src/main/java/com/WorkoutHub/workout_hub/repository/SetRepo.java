@@ -20,5 +20,5 @@ public interface SetRepo extends JpaRepository<Set, UUID> {
      AND (:since IS NULL OR w.createdAt > :since)
      ORDER BY w.createdAt DESC 
      """)
-    List<Set> findSetUserIdAndSince (@Param("userId") UUID userId, @Param ("since")OffsetDateTime since);
+    List<Set> findSetsByUserIdAndSince (@Param("userId") UUID userId, @Param ("since")OffsetDateTime since);
 }

@@ -25,7 +25,7 @@ public class WorkoutExerciseDto {
 
     @NotNull(message = "Exercise Info Id is required")
     @JsonProperty("exercise_info_id")
-    private Long exerciseInfoId;
+    private Integer exerciseInfoId;
 
     @NotNull(message = "Order in workout is required")
     @Min(value = 1, message = "order mest be at least 1")

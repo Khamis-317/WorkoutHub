@@ -2,6 +2,7 @@ package com.WorkoutHub.workout_hub.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Exercise extends BaseEntity {
 
     @Column(name = "order_in_workout", nullable = false)

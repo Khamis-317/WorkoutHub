@@ -5,7 +5,7 @@ import com.WorkoutHub.workout_hub.enums.SetType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-
+import lombok.experimental.SuperBuilder;
 
 
 @Entity
@@ -14,7 +14,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Set extends BaseEntity {
 
     @Column(name = "set_number", nullable = false)

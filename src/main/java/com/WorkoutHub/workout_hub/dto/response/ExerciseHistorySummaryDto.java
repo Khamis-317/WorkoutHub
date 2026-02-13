@@ -1,6 +1,7 @@
 package com.WorkoutHub.workout_hub.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ExerciseHistorySummaryDto {
     @JsonProperty("exercise_info_id")
-    private Long exerciseInfoId;
+    private Integer exerciseInfoId;
 
 
     @JsonProperty("exercise_name")

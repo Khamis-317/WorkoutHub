@@ -3,6 +3,7 @@ package com.WorkoutHub.workout_hub.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Setter
 @Getter
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "gym_rat_profiles")
 public class GymRatProfile extends BaseEntity {
