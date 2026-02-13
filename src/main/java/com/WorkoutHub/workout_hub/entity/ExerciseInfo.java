@@ -31,7 +31,7 @@ public class ExerciseInfo {
     // deleting an (exercise) doesn't delete the (muscles) in the muscle group
     @ToString.Exclude
     @OneToMany(
-            mappedBy = "exercise",
+            mappedBy = "exerciseInfo",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
@@ -51,7 +51,7 @@ public class ExerciseInfo {
         }
         ExerciseMuscle exerciseMuscle = ExerciseMuscle
                 .builder()
-                .exercise(this)
+                .exerciseInfo(this)
                 .muscle(muscle)
                 .importance(importance)
                 .build();

@@ -21,7 +21,7 @@ public class ExerciseMuscle {
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE,
@@ -30,9 +30,9 @@ public class ExerciseMuscle {
             }
     )
     @JoinColumn(name = "exercise_info_id", nullable = false)
-    private ExerciseInfo exercise;
+    private ExerciseInfo exerciseInfo;
 
-    @ManyToOne(fetch = FetchType.EAGER,
+    @ManyToOne(fetch = FetchType.LAZY,
             cascade = {
                 CascadeType.PERSIST,
                 CascadeType.MERGE,
