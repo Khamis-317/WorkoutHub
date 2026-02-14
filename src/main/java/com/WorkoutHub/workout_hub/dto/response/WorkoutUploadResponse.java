@@ -30,5 +30,5 @@ public class WorkoutUploadResponse {
     private Integer numberOfSets;
 
     @JsonProperty("new_exercise_history")
-    private List<ExerciseHistorySummaryDto> newExerciseHistory;
+    private List<ExerciseHistoryDto> newExerciseHistory;
 }

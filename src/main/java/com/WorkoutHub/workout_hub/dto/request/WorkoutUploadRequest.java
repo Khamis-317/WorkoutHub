@@ -3,6 +3,7 @@ package com.WorkoutHub.workout_hub.dto.request;
 import com.WorkoutHub.workout_hub.enums.Visibility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -39,14 +40,13 @@ public class WorkoutUploadRequest {
     @NotNull(message = "Visibility is required")
     private Visibility visibility;
 
+    @NotNull(message = "Performed at timestamp is required")
+    @JsonProperty("performed_at")
+    private OffsetDateTime performedAt;
 
-    @NotNull(message = "Started at timestamp is required")
-    @JsonProperty("started_at")
-    private OffsetDateTime startedAt;
-
-    @NotNull(message = "Completed at timestamp is required")
-    @JsonProperty("completed_at")
-    private  OffsetDateTime completedAt;
+    @NotNull(message = "Duration is required")
+    @Min(value = 1, message = "Duration must be at least 1 minute")
+    private Integer duration;
 
     @NotEmpty(message = "Workout must contain at least one exercise")
     @Valid

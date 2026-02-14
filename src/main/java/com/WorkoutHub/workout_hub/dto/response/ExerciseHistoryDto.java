@@ -26,7 +26,13 @@ public class ExerciseHistoryDto {
     @JsonProperty("last_performed")
     private OffsetDateTime lastPerformed;
 
-    @JsonProperty("all_time_sets")
-    private List<SetHistoryDto> allTimeSets;
+    @JsonProperty("max_position")
+    private Integer maxPosition;
+
+    @JsonProperty("history_map")
+    List<SetLookupEntryDto> historyMap;
+
+    @JsonProperty("last_workout_layout")
+    List<SetLookupEntryDto> lastWorkoutLayout;
 
 }
