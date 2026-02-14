@@ -5,23 +5,22 @@ import com.WorkoutHub.workout_hub.dto.response.ExerciseHistoryResponse;
 import com.WorkoutHub.workout_hub.dto.response.ExerciseLibraryResponse;
 import com.WorkoutHub.workout_hub.dto.response.WorkoutUploadResponse;
 import com.WorkoutHub.workout_hub.response.GenericResponse;
+import com.WorkoutHub.workout_hub.security.userdetails.GymRatDetails;
 import com.WorkoutHub.workout_hub.service.WorkoutTrackingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.OffsetDateTime;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class WorkoutTrackingController {
-
-
 
     private final WorkoutTrackingService workoutTrackingService;
 
@@ -36,9 +35,7 @@ public class WorkoutTrackingController {
     public ResponseEntity<GenericResponse<ExerciseLibraryResponse>> getExerciseLibrary(){
         var exerciseLibrary = workoutTrackingService.getExerciseLibrary();
         return ResponseEntity.ok(GenericResponse.success(exerciseLibrary));
-
     }
-
 
     /**
      * Upload a completed workout from the mobile app.
@@ -47,39 +44,40 @@ public class WorkoutTrackingController {
      * Returns workout ID, sync timestamp, and new exercise history for cache update.
      *
      * @param request Workout data with client-generated UUIDs
-     * @param userId User ID (from authentication context - you'll need to extract this from JWT)
+     * @param principal Authenticated user extracted from JWT token
      * @return Workout upload response with new exercise history
      */
     @PostMapping("workouts")
     public ResponseEntity<GenericResponse<WorkoutUploadResponse>> uploadWorkout(
             @Valid @RequestBody WorkoutUploadRequest request,
-            @RequestParam("user_id") UUID userId // TODO: Extract from JWT token instead
+            @AuthenticationPrincipal GymRatDetails principal
     ) {
-        var response = workoutTrackingService.saveWorkout(request, userId);
+        var userId = principal.getGymRat().getId();
+        var result = workoutTrackingService.saveWorkout(request, userId);
+        var status = result.alreadySynced() ? HttpStatus.OK : HttpStatus.CREATED;
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(GenericResponse.success(response));
+                .status(status)
+                .body(GenericResponse.success(result.response()));
     }
 
     /**
-     * Get exercise history for a user.
+     * Get exercise history for the authenticated user.
      * If 'since' parameter is omitted, returns full history (initial load/reinstall).
      * If 'since' is provided, returns only changes after that timestamp (delta sync).
      *
-     * @param userId User ID (from authentication context - you'll need to extract this from JWT)
+     * @param principal Authenticated user extracted from JWT token
      * @param since Optional timestamp for delta sync
      * @return Exercise history
      */
-    @GetMapping("users/{userId}/exercise-history")
+    @GetMapping("exercise-history")
     public ResponseEntity<GenericResponse<ExerciseHistoryResponse>> getExerciseHistory(
-            @PathVariable UUID userId, // TODO: Verify this matches authenticated user
+            @AuthenticationPrincipal GymRatDetails principal,
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime since
     ) {
+        var userId = principal.getGymRat().getId();
         var history = workoutTrackingService.getUserExerciseHistory(userId, since);
         return ResponseEntity.ok(GenericResponse.success(history));
     }
-
-
 
 }
