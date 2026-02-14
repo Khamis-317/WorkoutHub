@@ -1,6 +1,5 @@
 package com.WorkoutHub.workout_hub.controller.auth;
 
-import com.WorkoutHub.workout_hub.dto.auth.AuthResponse;
 import com.WorkoutHub.workout_hub.dto.auth.LoginRequest;
 import com.WorkoutHub.workout_hub.dto.auth.RegisterRequest;
 import com.WorkoutHub.workout_hub.response.GenericResponse;

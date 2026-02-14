@@ -13,6 +13,11 @@ import java.util.Collections;
 @AllArgsConstructor
 public class GymRatDetails implements UserDetails {
     private final GymRat gymRat;
+
+    public GymRat getGymRat() {
+        return gymRat;
+    }
+
     @Override
     public String getUsername() {
         return gymRat.getUsername();

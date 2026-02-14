@@ -33,7 +33,6 @@ public class DtoEntityMapper {
                 .title(workoutCreationDto.getTitle())
                 .caption(workoutCreationDto.getCaption())
                 .visibility(workoutCreationDto.getVisibility())
-                .startTime(workoutCreationDto.getStartTime())
                 .duration(workoutCreationDto.getDuration())
                 .build();
 

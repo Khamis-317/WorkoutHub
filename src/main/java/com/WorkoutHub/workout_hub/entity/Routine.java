@@ -3,6 +3,7 @@ package com.WorkoutHub.workout_hub.entity;
 import com.WorkoutHub.workout_hub.enums.Visibility;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Routine extends BaseEntity {
 
     @Column(name = "name", nullable = false)

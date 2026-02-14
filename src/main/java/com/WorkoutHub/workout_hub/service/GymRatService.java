@@ -34,8 +34,20 @@ public class GymRatService {
 
 
     public void createGymRat(RegisterRequest creationDto) {
-        GymRat gymrat = new GymRat(creationDto);
-        GymRatProfile gymRatProfile = new GymRatProfile(creationDto);
+        GymRat gymrat = GymRat.builder()
+                .username(creationDto.getUsername())
+                .email(creationDto.getEmail())
+                .password(creationDto.getPassword())
+                .build();
+
+        GymRatProfile gymRatProfile = GymRatProfile.builder()
+                .firstName(creationDto.getFirstName())
+                .lastName(creationDto.getLastName())
+                .country(creationDto.getCountry())
+                .birthDate(creationDto.getBirthDate())
+                .bio(creationDto.getBio())
+                .build();
+
         gymrat.setProfile(gymRatProfile);
         gymRatRepository.save(gymrat);
     }
@@ -58,7 +70,21 @@ public class GymRatService {
     public ProfileDto updateGymRatById(UUID id, GymRatUpdateDto updateDto) throws EntityNotFoundException {
         GymRat gymrat = gymRatRepository.findGymRatWithProfileById(id)
                 .orElseThrow(() ->  new EntityNotFoundException("Entity Not Found: Gymrat with id: " + id + " is not found."));
-        gymrat.update(updateDto);
+        
+        // update gymrat user data
+        if (updateDto.getUsername() != null) gymrat.setUsername(updateDto.getUsername());
+        if (updateDto.getEmail() != null) gymrat.setEmail(updateDto.getEmail());
+
+        // update gymrat profile data
+        GymRatProfile profile = gymrat.getProfile();
+        if (profile != null) {
+            if (updateDto.getFirstName() != null) profile.setFirstName(updateDto.getFirstName());
+            if (updateDto.getLastName() != null) profile.setLastName(updateDto.getLastName());
+            if (updateDto.getCountry() != null) profile.setCountry(updateDto.getCountry());
+            if (updateDto.getBirthDate() != null) profile.setBirthDate(updateDto.getBirthDate());
+            if (updateDto.getBio() != null) profile.setBio(updateDto.getBio());
+        }
+
         gymRatRepository.save(gymrat);
         return new ProfileDto(gymrat);
     }

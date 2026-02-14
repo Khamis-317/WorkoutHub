@@ -19,19 +19,19 @@ public class ExerciseInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "instructions")
-    String instructions;
+    private String instructions;
 
     // saving an (exercise) with a muscle group will also save the (muscles) in their table
     // deleting an (exercise) doesn't delete the (muscles) in the muscle group
     @ToString.Exclude
     @OneToMany(
-            mappedBy = "exercise",
+            mappedBy = "exerciseInfo",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
@@ -51,7 +51,7 @@ public class ExerciseInfo {
         }
         ExerciseMuscle exerciseMuscle = ExerciseMuscle
                 .builder()
-                .exercise(this)
+                .exerciseInfo(this)
                 .muscle(muscle)
                 .importance(importance)
                 .build();

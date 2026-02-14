@@ -4,8 +4,7 @@ package com.WorkoutHub.workout_hub.entity;
 import com.WorkoutHub.workout_hub.enums.Visibility;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.OffsetDateTime;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "workout_posts")
@@ -13,7 +12,7 @@ import java.time.OffsetDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class WorkoutPost extends BaseEntity {
 
     @Column(name = "title", nullable = false)
@@ -21,12 +20,6 @@ public class WorkoutPost extends BaseEntity {
 
     @Column(name = "caption")
     String caption;
-
-    @Column(name = "start_time", nullable = false, columnDefinition = "TIMESTAMPTZ")
-    OffsetDateTime startTime;
-
-    @Column(name = "finish_time", columnDefinition = "TIMESTAMPTZ")
-    OffsetDateTime finishTime;
 
     @Column(name = "duration_in_minutes", nullable = false)
     int duration;

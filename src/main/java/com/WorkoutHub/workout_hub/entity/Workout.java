@@ -4,7 +4,9 @@ package com.WorkoutHub.workout_hub.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +17,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Workout extends BaseEntity {
+
+    @Column(name = "performed_at", nullable = false, columnDefinition = "TIMESTAMPTZ")
+    private OffsetDateTime performedAt;
 
     @Column(name = "total_volume", nullable = false)
     private double totalVolume;

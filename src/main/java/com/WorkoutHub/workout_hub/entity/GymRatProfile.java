@@ -1,9 +1,9 @@
 package com.WorkoutHub.workout_hub.entity;
 
 
-import com.WorkoutHub.workout_hub.dto.auth.RegisterRequest;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Setter
 @Getter
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "gym_rat_profiles")
 public class GymRatProfile extends BaseEntity {
@@ -31,12 +31,4 @@ public class GymRatProfile extends BaseEntity {
 
     @Column(name = "bio")
     private String bio;
-
-    public GymRatProfile(RegisterRequest dto) {
-        this.firstName = dto.getFirstName();
-        this.lastName = dto.getLastName();
-        this.country = dto.getCountry();
-        this.birthDate = dto.getBirthDate();
-        this.bio = dto.getBio();
-    }
 }

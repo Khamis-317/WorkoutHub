@@ -5,7 +5,9 @@ import com.WorkoutHub.workout_hub.enums.SetType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+import java.time.OffsetDateTime;
 
 
 @Entity
@@ -14,7 +16,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Set extends BaseEntity {
 
     @Column(name = "set_number", nullable = false)
@@ -30,6 +32,9 @@ public class Set extends BaseEntity {
     @Column(name = "set_type") // cannot be null or could be normal by default
     @Enumerated(value = EnumType.STRING)
     private SetType setType;
+
+    @Column(name = "performed_at", nullable = false, columnDefinition = "TIMESTAMPTZ")
+    private OffsetDateTime performedAt;
 
     @JsonIgnore
     @ManyToOne(

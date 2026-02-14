@@ -2,7 +2,9 @@ package com.WorkoutHub.workout_hub.exception;
 
 import com.WorkoutHub.workout_hub.response.GenericResponse;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -60,6 +62,13 @@ public class GlobalExceptionHandler {
         GenericResponse<?> error = GenericResponse.error("Data Integrity Violation: due to violating entity constraints.");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler({InvalidDataAccessResourceUsageException.class, DataAccessException.class})
+    public ResponseEntity<?> handleDataAccessException(DataAccessException e) {
+        GenericResponse<?> error = GenericResponse.error("Database error: " + e.getMostSpecificCause().getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 
 }

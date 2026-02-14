@@ -3,6 +3,7 @@ package com.WorkoutHub.workout_hub.entity;
 import com.WorkoutHub.workout_hub.enums.SetType;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "routine_set_templates")
@@ -10,7 +11,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class RoutineSetTemplate extends BaseEntity {
 
     @Column(name = "set_order", nullable = false)

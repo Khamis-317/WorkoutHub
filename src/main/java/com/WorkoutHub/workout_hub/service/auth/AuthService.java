@@ -18,6 +18,7 @@ import com.WorkoutHub.workout_hub.exception.DuplicateResourceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -43,6 +44,7 @@ public class AuthService {
             throw new DuplicateResourceException("Username is already in use");
         }
         var profile = new GymRatProfile();
+        profile.setId(UUID.randomUUID());
         profile.setFirstName(request.getFirstName());
         profile.setLastName(request.getLastName());
         profile.setCountry(request.getCountry());
@@ -50,6 +52,7 @@ public class AuthService {
         profile.setBio(request.getBio());
 
         var user = new GymRat();
+        user.setId(request.getId());
         user.setProfile(profile);
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());

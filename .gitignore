@@ -26,3 +26,11 @@ secrets.properties
 # --- Logs & Crash Reports ---
 *.log
 hs_err_pid*
+
+# --- OTHER ---
+db-starter-script.sql
+AGENTS.md
+
+
+
+.current_feature.txt
