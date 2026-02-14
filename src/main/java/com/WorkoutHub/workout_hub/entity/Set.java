@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.OffsetDateTime;
+
 
 @Entity
 @Table(name = "sets")
@@ -30,6 +32,9 @@ public class Set extends BaseEntity {
     @Column(name = "set_type") // cannot be null or could be normal by default
     @Enumerated(value = EnumType.STRING)
     private SetType setType;
+
+    @Column(name = "performed_at", nullable = false, columnDefinition = "TIMESTAMPTZ")
+    private OffsetDateTime performedAt;
 
     @JsonIgnore
     @ManyToOne(

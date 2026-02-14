@@ -44,6 +44,7 @@ public class AuthService {
             throw new DuplicateResourceException("Username is already in use");
         }
         var profile = new GymRatProfile();
+        profile.setId(UUID.randomUUID());
         profile.setFirstName(request.getFirstName());
         profile.setLastName(request.getLastName());
         profile.setCountry(request.getCountry());

@@ -3,6 +3,8 @@ package com.WorkoutHub.workout_hub.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +20,9 @@ public class Exercise extends BaseEntity {
 
     @Column(name = "order_in_workout", nullable = false)
     private int orderInWorkout;
+
+    @Column(name = "performed_at", nullable = false, columnDefinition = "TIMESTAMPTZ")
+    private OffsetDateTime performedAt;
 
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

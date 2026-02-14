@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-import java.time.OffsetDateTime;
-
 @Entity
 @Table(name = "workout_posts")
 @Getter
@@ -22,12 +20,6 @@ public class WorkoutPost extends BaseEntity {
 
     @Column(name = "caption")
     String caption;
-
-    @Column(name = "start_time", nullable = false, columnDefinition = "TIMESTAMPTZ")
-    OffsetDateTime startTime;
-
-    @Column(name = "finish_time", columnDefinition = "TIMESTAMPTZ")
-    OffsetDateTime finishTime;
 
     @Column(name = "duration_in_minutes", nullable = false)
     int duration;

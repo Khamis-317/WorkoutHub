@@ -21,8 +21,7 @@ import java.util.UUID;
 public abstract class BaseEntity implements Persistable<UUID> {
     @Id
     @Column(name = "id", updatable = false, nullable = false)
-    @Builder.Default
-    protected UUID id = UUID.randomUUID();
+    protected UUID id;
 
     @Transient
     @JsonIgnore
